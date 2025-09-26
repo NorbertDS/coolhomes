@@ -16,6 +16,18 @@
       "dest": "/index.html"
     },
     {
+      "src": "/home",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/services",
+      "dest": "/services.html"
+    },
+    {
+      "src": "/about",
+      "dest": "/about.html"
+    },
+    {
       "src": "/properties",
       "dest": "/properties.html"
     },

@@ -1387,8 +1387,8 @@ Cool Homes</textarea>
                 return;
             }
             
-            // Show success message with details
-            alert(`Property "${title}" added successfully!\n\nLocation: ${location}\nPrice: KSh ${price}\nType: ${propertyType}\nStatus: ${status}\nImages: ${images.length} uploaded\n\nThe new property will appear in the properties list.`);
+            // Show professional success notification
+            showNotification('success', `Property "${title}" added successfully!`, 'The new property will appear in the properties list.');
             
             bootstrap.Modal.getInstance(document.getElementById('addPropertyModal')).hide();
             form.reset();
@@ -1410,18 +1410,18 @@ Cool Homes</textarea>
             
             // Validate required fields
             if (!name || !email || !phone || !role || !password || !confirmPassword) {
-                alert('Please fill in all required fields.');
+                showNotification('error', 'Validation Error', 'Please fill in all required fields.');
                 return;
             }
             
             // Validate password match
             if (password !== confirmPassword) {
-                alert('Passwords do not match. Please try again.');
+                showNotification('error', 'Password Mismatch', 'Passwords do not match. Please try again.');
                 return;
             }
             
-            // Show success message with details
-            alert(`User "${name}" added successfully!\n\nEmail: ${email}\nRole: ${role}\nPhone: ${phone}\n\nThe new user will appear in the users list.`);
+            // Show professional success notification
+            showNotification('success', `User "${name}" added successfully!`, 'The new user will appear in the users list.');
             
             bootstrap.Modal.getInstance(document.getElementById('addUserModal')).hide();
             form.reset();
@@ -1441,12 +1441,12 @@ Cool Homes</textarea>
             
             // Validate required fields
             if (!title || !contentType || !content || !status) {
-                alert('Please fill in all required fields.');
+                showNotification('error', 'Validation Error', 'Please fill in all required fields.');
                 return;
             }
             
-            // Show success message with details
-            alert(`Content "${title}" added successfully!\n\nType: ${contentType}\nStatus: ${status}\nImage: ${imageUrl || 'None'}\n\nThe new content will appear in the content list.`);
+            // Show professional success notification
+            showNotification('success', `Content "${title}" added successfully!`, 'The new content will appear in the content list.');
             
             bootstrap.Modal.getInstance(document.getElementById('addContentModal')).hide();
             form.reset();
@@ -1464,15 +1464,99 @@ Cool Homes</textarea>
             
             // Validate required fields
             if (!to || !subject || !message) {
-                alert('Please fill in all required fields.');
+                showNotification('error', 'Validation Error', 'Please fill in all required fields.');
                 return;
             }
             
-            // Show success message with details
-            alert(`Reply sent successfully!\n\nTo: ${to}\nSubject: ${subject}\n\nThe client will receive your response via email.`);
+            // Show professional success notification
+            showNotification('success', 'Reply sent successfully!', 'The client will receive your response via email.');
             
             bootstrap.Modal.getInstance(document.getElementById('replyInquiryModal')).hide();
             form.reset();
+        }
+
+        // Professional notification system
+        function showNotification(type, title, message) {
+            // Create notification container if it doesn't exist
+            let notificationContainer = document.getElementById('notification-container');
+            if (!notificationContainer) {
+                notificationContainer = document.createElement('div');
+                notificationContainer.id = 'notification-container';
+                notificationContainer.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    z-index: 9999;
+                    max-width: 400px;
+                `;
+                document.body.appendChild(notificationContainer);
+            }
+
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                padding: 1rem;
+                margin-bottom: 1rem;
+                border-left: 4px solid ${type === 'success' ? '#10b981' : '#ef4444'};
+                animation: slideIn 0.3s ease;
+            `;
+
+            notification.innerHTML = `
+                <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                    <div style="
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 50%;
+                        background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+                        font-size: 0.8rem;
+                        flex-shrink: 0;
+                    ">
+                        ${type === 'success' ? '✓' : '✕'}
+                    </div>
+                    <div style="flex: 1;">
+                        <h6 style="margin: 0 0 0.25rem 0; color: #1e293b; font-weight: 600;">${title}</h6>
+                        <p style="margin: 0; color: #64748b; font-size: 0.9rem;">${message}</p>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" style="
+                        background: none;
+                        border: none;
+                        color: #64748b;
+                        cursor: pointer;
+                        padding: 0;
+                        font-size: 1.2rem;
+                    ">×</button>
+                </div>
+            `;
+
+            // Add CSS animation
+            if (!document.getElementById('notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            notificationContainer.appendChild(notification);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.style.animation = 'slideIn 0.3s ease reverse';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 5000);
         }
 
         // Image preview function

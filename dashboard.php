@@ -966,15 +966,15 @@
                                                 <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Property Title</label>
-                                    <input type="text" class="form-control" required>
+                                    <input type="text" name="title" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Location</label>
-                                    <input type="text" class="form-control" required>
+                                    <input type="text" name="location" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Price</label>
-                                    <input type="number" class="form-control" required>
+                                    <input type="number" name="price" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -1564,64 +1564,79 @@ Cool Homes</textarea>
         // Form submission handlers
         function handleAddProperty(event) {
             event.preventDefault();
+            
             const form = event.target;
             const formData = new FormData(form);
             
-            // Get form data
-            const title = form.querySelector('input[type="text"]').value;
-            const location = form.querySelectorAll('input[type="text"]')[1].value;
-            const price = form.querySelector('input[type="number"]').value;
-            const bedrooms = form.querySelectorAll('input[type="number"]')[1].value;
-            const bathrooms = form.querySelectorAll('input[type="number"]')[2].value;
-            const propertyType = form.querySelector('select').value;
-            const description = form.querySelector('textarea').value;
-            const status = form.querySelectorAll('select')[1].value;
-            const images = form.querySelector('#property-images').files;
-            
             // Validate required fields
-            if (!title || !location || !price || !bedrooms || !bathrooms || !propertyType) {
-                alert('Please fill in all required fields.');
-                return;
-            }
+            const title = formData.get('title');
+            const location = formData.get('location');
+            const price = formData.get('price');
+            const type = formData.get('type');
             
-            // Show professional success notification
-            showNotification('success', `Property "${title}" added successfully!`, 'The new property will appear in the properties list.');
-            
-            bootstrap.Modal.getInstance(document.getElementById('addPropertyModal')).hide();
-            form.reset();
-        }
-
-        function handleAddUser(event) {
-            event.preventDefault();
-            const form = event.target;
-            const formData = new FormData(form);
-            
-            // Get form data
-            const name = form.querySelectorAll('input[type="text"]')[0].value;
-            const email = form.querySelector('input[type="email"]').value;
-            const phone = form.querySelector('input[type="tel"]').value;
-            const role = form.querySelector('select').value;
-            const password = form.querySelectorAll('input[type="password"]')[0].value;
-            const confirmPassword = form.querySelectorAll('input[type="password"]')[1].value;
-            const address = form.querySelector('textarea').value;
-            
-            // Validate required fields
-            if (!name || !email || !phone || !role || !password || !confirmPassword) {
+            if (!title || !location || !price || !type) {
                 showNotification('error', 'Validation Error', 'Please fill in all required fields.');
                 return;
             }
             
-            // Validate password match
-            if (password !== confirmPassword) {
-                showNotification('error', 'Password Mismatch', 'Passwords do not match. Please try again.');
+            // Send data to server
+            fetch('api/add-property.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification('success', `Property "${title}" added successfully!`, 'The property has been created and saved.');
+                    bootstrap.Modal.getInstance(document.getElementById('addPropertyModal')).hide();
+                    form.reset();
+                    // Refresh properties list
+                    loadProperties();
+                } else {
+                    showNotification('error', 'Error', data.message || 'Failed to add property.');
+                }
+            })
+            .catch(error => {
+                showNotification('error', 'Error', 'Failed to add property. Please try again.');
+            });
+        }
+
+        function handleAddUser(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            // Validate required fields
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const role = formData.get('role');
+            
+            if (!name || !email || !role) {
+                showNotification('error', 'Validation Error', 'Please fill in all required fields.');
                 return;
             }
             
-            // Show professional success notification
-            showNotification('success', `User "${name}" added successfully!`, 'The new user will appear in the users list.');
-            
-            bootstrap.Modal.getInstance(document.getElementById('addUserModal')).hide();
-            form.reset();
+            // Send data to server
+            fetch('api/add-user.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification('success', `User "${name}" added successfully!`, 'The user has been created and saved.');
+                    bootstrap.Modal.getInstance(document.getElementById('addUserModal')).hide();
+                    form.reset();
+                    // Refresh users list
+                    loadUsers();
+                } else {
+                    showNotification('error', 'Error', data.message || 'Failed to add user.');
+                }
+            })
+            .catch(error => {
+                showNotification('error', 'Error', 'Failed to add user. Please try again.');
+            });
         }
 
         function handleAddContent(event) {
@@ -1831,9 +1846,145 @@ Cool Homes</textarea>
                 replyInquiryForm.addEventListener('submit', handleReplyInquiry);
             }
             
-            // Show welcome message
-            console.log('Welcome to Cool Homes Admin Dashboard, Norbert!');
+        // Load initial data
+        loadData();
+        
+        // Show welcome message
+        console.log('Welcome to Cool Homes Admin Dashboard, Norbert!');
+    });
+
+    // Data loading functions
+    function loadData() {
+        fetch('api/get-data.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updatePropertiesTable(data.data.properties);
+                updateUsersTable(data.data.users);
+                updateInquiriesTable(data.data.inquiries);
+                updateAppointmentsTable(data.data.appointments);
+            }
+        })
+        .catch(error => {
+            console.error('Error loading data:', error);
         });
+    }
+
+    function loadProperties() {
+        fetch('api/get-data.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updatePropertiesTable(data.data.properties);
+            }
+        });
+    }
+
+    function loadUsers() {
+        fetch('api/get-data.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updateUsersTable(data.data.users);
+            }
+        });
+    }
+
+    function updatePropertiesTable(properties) {
+        const tbody = document.querySelector('#properties-table tbody');
+        if (!tbody) return;
+        
+        tbody.innerHTML = '';
+        properties.forEach(property => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${property.title}</td>
+                <td>KSh ${parseInt(property.price).toLocaleString()}</td>
+                <td>${property.location}</td>
+                <td><span class="badge badge-${property.status === 'available' ? 'success' : 'warning'}">${property.status}</span></td>
+                <td>${property.agent_name || 'N/A'}</td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="btn btn-outline-primary btn-sm" onclick="editProperty(${property.id})">Edit</button>
+                        <button class="btn btn-outline-danger btn-sm" onclick="deleteProperty(${property.id})">Delete</button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function updateUsersTable(users) {
+        const tbody = document.querySelector('#users-table tbody');
+        if (!tbody) return;
+        
+        tbody.innerHTML = '';
+        users.forEach(user => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${user.name}</td>
+                <td>${user.email}</td>
+                <td>${user.phone || 'N/A'}</td>
+                <td><span class="badge badge-${user.role === 'agent' ? 'primary' : 'secondary'}">${user.role}</span></td>
+                <td><span class="badge badge-${user.status === 'active' ? 'success' : 'warning'}">${user.status}</span></td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="btn btn-outline-primary btn-sm" onclick="editUser(${user.id})">Edit</button>
+                        <button class="btn btn-outline-${user.status === 'active' ? 'warning' : 'success'} btn-sm" onclick="toggleUserStatus(${user.id}, '${user.status}')">${user.status === 'active' ? 'Deactivate' : 'Activate'}</button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function updateInquiriesTable(inquiries) {
+        const tbody = document.querySelector('#inquiries-table tbody');
+        if (!tbody) return;
+        
+        tbody.innerHTML = '';
+        inquiries.forEach(inquiry => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${inquiry.name}</td>
+                <td>${inquiry.email}</td>
+                <td>${inquiry.property_title || 'General Inquiry'}</td>
+                <td><span class="badge badge-${inquiry.status === 'new' ? 'warning' : 'success'}">${inquiry.status}</span></td>
+                <td>${new Date(inquiry.created_at).toLocaleDateString()}</td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="btn btn-outline-primary btn-sm" onclick="viewInquiry(${inquiry.id})">View</button>
+                        <button class="btn btn-outline-success btn-sm" onclick="replyToInquiry(${inquiry.id})">Reply</button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function updateAppointmentsTable(appointments) {
+        const tbody = document.querySelector('#appointments-table tbody');
+        if (!tbody) return;
+        
+        tbody.innerHTML = '';
+        appointments.forEach(appointment => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${appointment.client_name}</td>
+                <td>${appointment.property_title || 'N/A'}</td>
+                <td>${new Date(appointment.appointment_date).toLocaleDateString()}</td>
+                <td>${appointment.appointment_time}</td>
+                <td><span class="badge badge-${appointment.status === 'pending' ? 'warning' : 'success'}">${appointment.status}</span></td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="btn btn-outline-primary btn-sm" onclick="viewAppointment(${appointment.id})">View</button>
+                        <button class="btn btn-outline-success btn-sm" onclick="confirmAppointment(${appointment.id})">Confirm</button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
     </script>
 </body>
 </html>

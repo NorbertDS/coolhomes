@@ -69,14 +69,17 @@ $pageDescription = "Manage your Cool Homes platform - properties, users, inquiri
             <!-- Dashboard Section -->
             <div id="dashboard-section" class="active-section">
                 <div class="content-header">
+                    <div class="alert alert-warning">
+                        <strong>TEST MESSAGE:</strong> If you can see this, the dashboard is updated! Look for the red IMPORT button above.
+                    </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h1>Welcome, <?php echo $_SESSION['user_name']; ?>!</h1>
                             <p>Cool Homes Founder</p>
                         </div>
                         <div>
-                            <a href="admin-import-properties.php" class="btn btn-primary btn-lg">
-                                <i class="fas fa-download"></i> Import Properties
+                            <a href="admin-import-properties.php" class="btn btn-primary btn-lg" style="background-color: #ff0000 !important; border-color: #ff0000 !important;">
+                                <i class="fas fa-download"></i> IMPORT PROPERTIES - CLICK HERE
                             </a>
                         </div>
                     </div>

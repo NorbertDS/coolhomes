@@ -10,9 +10,33 @@ function getDBConnection() {
     try {
         $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         return $pdo;
     } catch(PDOException $e) {
-        die("Connection failed: " . $e->getMessage());
+        // If database doesn't exist, try to create it
+        try {
+            $pdo = new PDO("mysql:host=" . DB_HOST, DB_USER, DB_PASS);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo->exec("CREATE DATABASE IF NOT EXISTS " . DB_NAME);
+            $pdo->exec("USE " . DB_NAME);
+            
+            // Import SQL file if it exists
+            $sqlFile = __DIR__ . '/../database/coolhomes.sql';
+            if (file_exists($sqlFile)) {
+                $sql = file_get_contents($sqlFile);
+                $statements = explode(';', $sql);
+                foreach ($statements as $statement) {
+                    $statement = trim($statement);
+                    if (!empty($statement)) {
+                        $pdo->exec($statement);
+                    }
+                }
+            }
+            
+            return $pdo;
+        } catch(PDOException $e2) {
+            die("Database setup failed: " . $e2->getMessage());
+        }
     }
 }
 

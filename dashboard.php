@@ -52,7 +52,7 @@ $pageDescription = "Manage your Cool Homes platform - properties, users, inquiri
                 <a href="#blog" class="menu-item" onclick="showSection('blog')">
                     <i class="fas fa-blog"></i> Blog
                 </a>
-                <a href="admin-import-properties.php" class="menu-item">
+                <a href="admin-import-properties.php" class="menu-item" target="_blank">
                     <i class="fas fa-download"></i> Import Properties
                 </a>
                 <a href="home" class="menu-item">
@@ -69,8 +69,17 @@ $pageDescription = "Manage your Cool Homes platform - properties, users, inquiri
             <!-- Dashboard Section -->
             <div id="dashboard-section" class="active-section">
                 <div class="content-header">
-                    <h1>Welcome, <?php echo $_SESSION['user_name']; ?>!</h1>
-                    <p>Cool Homes Founder</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h1>Welcome, <?php echo $_SESSION['user_name']; ?>!</h1>
+                            <p>Cool Homes Founder</p>
+                        </div>
+                        <div>
+                            <a href="admin-import-properties.php" class="btn btn-primary btn-lg">
+                                <i class="fas fa-download"></i> Import Properties
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="content-section">
                     <h3>Dashboard Overview</h3>

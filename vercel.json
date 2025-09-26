@@ -12,6 +12,10 @@
       "dest": "/index.html"
     },
     {
+      "src": "/index",
+      "dest": "/index.html"
+    },
+    {
       "src": "/properties",
       "dest": "/properties.html"
     },

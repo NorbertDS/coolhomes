@@ -160,7 +160,7 @@
         </div>
         <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="index">
                     <i class="fas fa-home me-2"></i>Cool Homes
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -169,19 +169,19 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Home</a>
+                            <a class="nav-link" href="index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="properties.html">Properties</a>
+                            <a class="nav-link active" href="properties">Properties</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html#blog">Blog</a>
+                            <a class="nav-link" href="index#blog">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html#contact">Contact</a>
+                            <a class="nav-link" href="index#contact">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="login.html">Login</a>
+                            <a class="nav-link" href="login">Login</a>
                         </li>
                     </ul>
                 </div>
@@ -439,7 +439,7 @@
                             <div class="price">
                                 <h4 class="text-primary mb-0">${property.price}</h4>
                             </div>
-                            <a href="property-details.html?id=${property.id}" class="btn btn-outline-primary">View Details</a>
+                            <a href="property-details?id=${property.id}" class="btn btn-outline-primary">View Details</a>
                         </div>
                     </div>
                 </div>
@@ -473,7 +473,7 @@
                                             <h4 class="text-primary mb-0">${property.price}</h4>
                                         </div>
                                         <div class="d-grid gap-2">
-                                            <a href="property-details.html?id=${property.id}" class="btn btn-primary">View Details</a>
+                                            <a href="property-details?id=${property.id}" class="btn btn-primary">View Details</a>
                                             <button class="btn btn-outline-secondary" onclick="toggleFavorite('${property.id}')">
                                                 <i class="far fa-heart me-1"></i>Add to Favorites
                                             </button>

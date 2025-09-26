@@ -2,7 +2,15 @@
   "version": 2,
   "builds": [
     {
-      "src": "**/*",
+      "src": "**/*.php",
+      "use": "@vercel/php"
+    },
+    {
+      "src": "**/*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "**/*.{css,js,webp,jpg,png,svg}",
       "use": "@vercel/static"
     }
   ],
@@ -21,31 +29,31 @@
     },
     {
       "src": "/services",
-      "dest": "/services.html"
+      "dest": "/services.php"
     },
     {
       "src": "/about",
-      "dest": "/about.html"
+      "dest": "/about.php"
     },
     {
       "src": "/properties",
-      "dest": "/properties.html"
+      "dest": "/properties.php"
     },
     {
       "src": "/property-details",
-      "dest": "/property-details.html"
+      "dest": "/property-details.php"
     },
     {
       "src": "/blog-details",
-      "dest": "/blog-details.html"
+      "dest": "/blog-details.php"
     },
     {
       "src": "/dashboard",
-      "dest": "/dashboard.html"
+      "dest": "/dashboard.php"
     },
     {
       "src": "/login",
-      "dest": "/login.html"
+      "dest": "/login.php"
     },
     {
       "src": "/(.*)",

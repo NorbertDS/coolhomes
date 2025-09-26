@@ -432,7 +432,7 @@
             <a href="#settings" class="menu-item" onclick="showSection('settings')">
                 <i class="fas fa-cog"></i> Settings
             </a>
-            <a href="index" class="menu-item">
+            <a href="home" class="menu-item">
                 <i class="fas fa-external-link-alt"></i> View Website
             </a>
             <a href="#" class="menu-item" onclick="logout()">
@@ -1042,6 +1042,92 @@
     </div>
 
     <!-- Additional Modals -->
+    <!-- Edit Property Modal -->
+    <div class="modal fade" id="editPropertyModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Property</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editPropertyForm" onsubmit="handleEditProperty(event)">
+                        <input type="hidden" name="property_id" id="edit-property-id">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Property Title</label>
+                                    <input type="text" name="title" id="edit-property-title" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Location</label>
+                                    <input type="text" name="location" id="edit-property-location" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Price</label>
+                                    <input type="number" name="price" id="edit-property-price" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Bedrooms</label>
+                                    <input type="number" name="bedrooms" id="edit-property-bedrooms" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Bathrooms</label>
+                                    <input type="number" name="bathrooms" id="edit-property-bathrooms" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Area (sq ft)</label>
+                                    <input type="number" name="area" id="edit-property-area" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Property Type</label>
+                                    <select name="type" id="edit-property-type" class="form-control" required>
+                                        <option value="">Select Type</option>
+                                        <option value="apartment">Apartment</option>
+                                        <option value="house">House</option>
+                                        <option value="villa">Villa</option>
+                                        <option value="commercial">Commercial</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea name="description" id="edit-property-description" class="form-control" rows="4" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Features</label>
+                            <textarea name="features" id="edit-property-features" class="form-control" rows="3" placeholder="Swimming Pool, Garden, Security, etc."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Property Images</label>
+                            <input type="file" name="images[]" class="form-control" multiple accept="image/*" id="edit-property-images" onchange="previewEditImages(this)">
+                            <small class="form-text text-muted">Upload new images to replace existing ones</small>
+                            <div id="edit-image-preview" class="mt-2" style="display: none;">
+                                <h6>New Image Previews:</h6>
+                                <div id="edit-preview-container" class="d-flex flex-wrap gap-2"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Property Status</label>
+                            <select name="status" id="edit-property-status" class="form-control" required>
+                                <option value="available">Available</option>
+                                <option value="sold">Sold</option>
+                                <option value="rented">Rented</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" form="editPropertyForm" class="btn-primary">Update Property</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Add User Modal -->
     <div class="modal fade" id="addUserModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
@@ -1109,51 +1195,50 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="editUserForm" onsubmit="handleEditUser(event)">
+                        <input type="hidden" name="user_id" id="edit-user-id">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" value="Norbert" required>
+                                    <input type="text" name="name" id="edit-user-name" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" value="admin@coolhomes.co.ke" required>
+                                    <input type="email" name="email" id="edit-user-email" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
-                                                    <label class="form-label">Phone</label>
-                                    <input type="tel" class="form-control" value="0701274458" required>
+                                    <label class="form-label">Phone</label>
+                                    <input type="tel" name="phone" id="edit-user-phone" class="form-control" required>
                                 </div>
-                                                </div>
-                                                <div class="col-md-6">
+                            </div>
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Role</label>
-                                    <select class="form-control" required>
-                                        <option value="admin" selected>Admin</option>
+                                    <select name="role" id="edit-user-role" class="form-control" required>
                                         <option value="agent">Agent</option>
                                         <option value="buyer">Buyer</option>
                                         <option value="seller">Seller</option>
                                     </select>
-                                                </div>
+                                </div>
                                 <div class="mb-3">
                                     <label class="form-label">Status</label>
-                                    <select class="form-control" required>
-                                        <option value="active" selected>Active</option>
+                                    <select name="status" id="edit-user-status" class="form-control" required>
+                                        <option value="active">Active</option>
                                         <option value="inactive">Inactive</option>
-                                        <option value="suspended">Suspended</option>
                                     </select>
-                                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">New Password (optional)</label>
-                                    <input type="password" class="form-control">
                                 </div>
-                                                </div>
-                                            </div>
-                                        </form>
+                                <div class="mb-3">
+                                    <label class="form-label">Bio</label>
+                                    <textarea name="bio" id="edit-user-bio" class="form-control" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                                     </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn-primary" onclick="handleEditUser()">Save Changes</button>
+                    <button type="submit" form="editUserForm" class="btn-primary">Update User</button>
                 </div>
                             </div>
         </div>
@@ -1470,36 +1555,66 @@ Cool Homes</textarea>
                 if (data.success) {
                     const property = data.data;
                     
-                    // Pre-fill the form (we'll use the add form for now)
-                    const form = document.getElementById('addPropertyForm');
-                    form.querySelector('input[name="title"]').value = property.title || '';
-                    form.querySelector('input[name="location"]').value = property.location || '';
-                    form.querySelector('input[name="price"]').value = property.price || '';
-                    form.querySelector('input[name="bedrooms"]').value = property.bedrooms || '';
-                    form.querySelector('input[name="bathrooms"]').value = property.bathrooms || '';
-                    form.querySelector('input[name="area"]').value = property.area || '';
-                    form.querySelector('select[name="type"]').value = property.type || '';
-                    form.querySelector('textarea[name="description"]').value = property.description || '';
-                    form.querySelector('textarea[name="features"]').value = property.features || '';
-                    form.querySelector('select[name="status"]').value = property.status || '';
+                    // Pre-fill the edit form
+                    document.getElementById('edit-property-id').value = propertyId;
+                    document.getElementById('edit-property-title').value = property.title || '';
+                    document.getElementById('edit-property-location').value = property.location || '';
+                    document.getElementById('edit-property-price').value = property.price || '';
+                    document.getElementById('edit-property-bedrooms').value = property.bedrooms || '';
+                    document.getElementById('edit-property-bathrooms').value = property.bathrooms || '';
+                    document.getElementById('edit-property-area').value = property.area || '';
+                    document.getElementById('edit-property-type').value = property.type || '';
+                    document.getElementById('edit-property-description').value = property.description || '';
+                    document.getElementById('edit-property-features').value = property.features || '';
+                    document.getElementById('edit-property-status').value = property.status || '';
                     
-                    // Change form action to update
-                    form.action = 'api/update-property.php';
-                    form.querySelector('input[name="property_id"]') ? 
-                        form.querySelector('input[name="property_id"]').value = propertyId :
-                        form.insertAdjacentHTML('afterbegin', `<input type="hidden" name="property_id" value="${propertyId}">`);
-                    
-                    // Change modal title
-                    document.querySelector('#addPropertyModal .modal-title').textContent = 'Edit Property';
-                    document.querySelector('#addPropertyModal .btn-primary').textContent = 'Update Property';
-                    
-                    new bootstrap.Modal(document.getElementById('addPropertyModal')).show();
+                    // Show the edit modal
+                    new bootstrap.Modal(document.getElementById('editPropertyModal')).show();
                 } else {
                     showNotification('error', 'Error', data.message || 'Failed to load property data.');
                 }
             })
             .catch(error => {
                 showNotification('error', 'Error', 'Failed to load property data.');
+            });
+        }
+
+        function handleEditProperty(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            // Validate required fields
+            const title = formData.get('title');
+            const location = formData.get('location');
+            const price = formData.get('price');
+            const type = formData.get('type');
+            
+            if (!title || !location || !price || !type) {
+                showNotification('error', 'Validation Error', 'Please fill in all required fields.');
+                return;
+            }
+            
+            // Send data to server
+            fetch('api/update-property.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification('success', `Property "${title}" updated successfully!`, 'The property has been updated and saved.');
+                    bootstrap.Modal.getInstance(document.getElementById('editPropertyModal')).hide();
+                    form.reset();
+                    // Refresh properties list
+                    loadProperties();
+                } else {
+                    showNotification('error', 'Error', data.message || 'Failed to update property.');
+                }
+            })
+            .catch(error => {
+                showNotification('error', 'Error', 'Failed to update property. Please try again.');
             });
         }
 
@@ -1519,26 +1634,17 @@ Cool Homes</textarea>
                 if (data.success) {
                     const user = data.data;
                     
-                    // Pre-fill the form (we'll use the add form for now)
-                    const form = document.getElementById('addUserForm');
-                    form.querySelector('input[name="name"]').value = user.name || '';
-                    form.querySelector('input[name="email"]').value = user.email || '';
-                    form.querySelector('input[name="phone"]').value = user.phone || '';
-                    form.querySelector('select[name="role"]').value = user.role || '';
-                    form.querySelector('select[name="status"]').value = user.status || '';
-                    form.querySelector('textarea[name="bio"]').value = user.bio || '';
+                    // Pre-fill the edit form
+                    document.getElementById('edit-user-id').value = userId;
+                    document.getElementById('edit-user-name').value = user.name || '';
+                    document.getElementById('edit-user-email').value = user.email || '';
+                    document.getElementById('edit-user-phone').value = user.phone || '';
+                    document.getElementById('edit-user-role').value = user.role || '';
+                    document.getElementById('edit-user-status').value = user.status || '';
+                    document.getElementById('edit-user-bio').value = user.bio || '';
                     
-                    // Change form action to update
-                    form.action = 'api/update-user.php';
-                    form.querySelector('input[name="user_id"]') ? 
-                        form.querySelector('input[name="user_id"]').value = userId :
-                        form.insertAdjacentHTML('afterbegin', `<input type="hidden" name="user_id" value="${userId}">`);
-                    
-                    // Change modal title
-                    document.querySelector('#addUserModal .modal-title').textContent = 'Edit User';
-                    document.querySelector('#addUserModal .btn-primary').textContent = 'Update User';
-                    
-                    new bootstrap.Modal(document.getElementById('addUserModal')).show();
+                    // Show the edit modal
+                    new bootstrap.Modal(document.getElementById('editUserModal')).show();
                 } else {
                     showNotification('error', 'Error', data.message || 'Failed to load user data.');
                 }
@@ -1548,25 +1654,42 @@ Cool Homes</textarea>
             });
         }
 
-        function handleEditUser() {
-            // Get form data from edit user modal
-            const form = document.querySelector('#editUserModal form');
-            const name = form.querySelector('input[type="text"]').value;
-            const email = form.querySelector('input[type="email"]').value;
-            const phone = form.querySelector('input[type="tel"]').value;
-            const role = form.querySelector('select').value;
-            const status = form.querySelectorAll('select')[1].value;
+        function handleEditUser(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
             
             // Validate required fields
-            if (!name || !email || !phone || !role || !status) {
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const role = formData.get('role');
+            
+            if (!name || !email || !role) {
                 showNotification('error', 'Validation Error', 'Please fill in all required fields.');
                 return;
             }
             
-            // Show professional success notification
-            showNotification('success', `User "${name}" updated successfully!`, 'The user information has been updated.');
-            
-            bootstrap.Modal.getInstance(document.getElementById('editUserModal')).hide();
+            // Send data to server
+            fetch('api/update-user.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification('success', `User "${name}" updated successfully!`, 'The user has been updated and saved.');
+                    bootstrap.Modal.getInstance(document.getElementById('editUserModal')).hide();
+                    form.reset();
+                    // Refresh users list
+                    loadUsers();
+                } else {
+                    showNotification('error', 'Error', data.message || 'Failed to update user.');
+                }
+            })
+            .catch(error => {
+                showNotification('error', 'Error', 'Failed to update user. Please try again.');
+            });
         }
 
         // Blog management functions
@@ -1893,6 +2016,34 @@ Cool Homes</textarea>
         }
 
         // Image preview function
+        function previewEditImages(input) {
+            const previewContainer = document.getElementById('edit-preview-container');
+            const imagePreview = document.getElementById('edit-image-preview');
+            
+            // Clear previous previews
+            previewContainer.innerHTML = '';
+            
+            if (input.files && input.files.length > 0) {
+                imagePreview.style.display = 'block';
+                
+                Array.from(input.files).forEach((file, index) => {
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.className = 'img-thumbnail';
+                            img.style.cssText = 'max-width: 100px; max-height: 100px; margin: 5px;';
+                            previewContainer.appendChild(img);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            } else {
+                imagePreview.style.display = 'none';
+            }
+        }
+
         function previewImages(input) {
             const previewContainer = document.getElementById('preview-container');
             const imagePreview = document.getElementById('image-preview');
@@ -1930,7 +2081,7 @@ Cool Homes</textarea>
             if (confirm('Are you sure you want to logout?')) {
                 localStorage.removeItem('userEmail');
                 localStorage.removeItem('userRole');
-                window.location.href = 'index';
+                window.location.href = 'home';
             }
         }
 

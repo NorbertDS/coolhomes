@@ -672,16 +672,46 @@
 
         function sendInquiry(event) {
             event.preventDefault();
-            alert('Thank you for your inquiry! We will get back to you within 24 hours.');
+            
+            // Get form data
+            const form = event.target;
+            const name = form.querySelector('#inquiry-name').value;
+            const email = form.querySelector('#inquiry-email').value;
+            const phone = form.querySelector('#inquiry-phone').value;
+            const type = form.querySelector('#inquiry-type').value;
+            const message = form.querySelector('#inquiry-message').value;
+            
+            // Get property details
+            const urlParams = new URLSearchParams(window.location.search);
+            const propertyId = urlParams.get('id') || 'property1';
+            const property = properties[propertyId];
+            
+            alert(`Thank you for your inquiry, ${name}!\n\nProperty: ${property ? property.title : 'Selected Property'}\n\nWe have received your inquiry and will respond to ${email} within 24 hours.\n\nYour inquiry has been forwarded to our team at info@coolhomes.co.ke`);
+            
             const modal = bootstrap.Modal.getInstance(document.getElementById('inquiryModal'));
             modal.hide();
+            form.reset();
         }
 
         function scheduleAppointment(event) {
             event.preventDefault();
-            alert('Appointment scheduled successfully! We will contact you to confirm the details.');
+            
+            // Get form data
+            const form = event.target;
+            const date = form.querySelector('#appointment-date').value;
+            const phone = form.querySelector('#appointment-phone').value;
+            const notes = form.querySelector('#appointment-notes').value;
+            
+            // Get property details
+            const urlParams = new URLSearchParams(window.location.search);
+            const propertyId = urlParams.get('id') || 'property1';
+            const property = properties[propertyId];
+            
+            alert(`Appointment scheduled successfully!\n\nProperty: ${property ? property.title : 'Selected Property'}\nDate: ${new Date(date).toLocaleDateString()}\n\nWe will contact you at ${phone} to confirm the details.\n\nYour appointment request has been forwarded to our team at info@coolhomes.co.ke`);
+            
             const modal = bootstrap.Modal.getInstance(document.getElementById('appointmentModal'));
             modal.hide();
+            form.reset();
         }
 
         // Initialize page

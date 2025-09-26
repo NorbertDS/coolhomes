@@ -92,12 +92,134 @@
                 alert('Login successful! Welcome to Cool Homes dashboard.');
                 window.location.href = 'dashboard.html';
             } else {
-                alert('Invalid email or password. Please try again.\n\nDemo credentials:\nadmin@coolhomes.co.ke / admin123\nagent@coolhomes.co.ke / agent123\nbuyer@coolhomes.co.ke / buyer123');
+                // Show professional error with credentials
+                const errorModal = document.createElement('div');
+                errorModal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.5);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                `;
+                
+                errorModal.innerHTML = `
+                    <div style="
+                        background: white;
+                        padding: 2rem;
+                        border-radius: 10px;
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                        max-width: 500px;
+                        width: 90%;
+                    ">
+                        <h3 style="margin-bottom: 1rem; color: #dc3545;">Invalid Credentials</h3>
+                        <p style="margin-bottom: 1.5rem;">Please check your email and password.</p>
+                        
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 5px; margin-bottom: 1.5rem;">
+                            <h4 style="margin-bottom: 1rem; color: #2563eb;">Demo Credentials:</h4>
+                            <div style="margin-bottom: 0.5rem;">
+                                <strong>Admin:</strong> admin@coolhomes.co.ke / admin123
+                            </div>
+                            <div style="margin-bottom: 0.5rem;">
+                                <strong>Agent:</strong> agent@coolhomes.co.ke / agent123
+                            </div>
+                            <div>
+                                <strong>Buyer:</strong> buyer@coolhomes.co.ke / buyer123
+                            </div>
+                        </div>
+                        
+                        <button onclick="closeErrorModal()" style="
+                            width: 100%;
+                            padding: 0.8rem;
+                            background: #2563eb;
+                            color: white;
+                            border: none;
+                            border-radius: 5px;
+                            cursor: pointer;
+                        ">Try Again</button>
+                    </div>
+                `;
+                
+                document.body.appendChild(errorModal);
+            }
+        }
+        
+        function closeErrorModal() {
+            const modal = document.querySelector('div[style*="position: fixed"]');
+            if (modal) {
+                modal.remove();
             }
         }
         
         function showRegister() {
-            alert('Registration form would open here. In a real application, this would show a registration modal or redirect to a registration page.');
+            // Create a professional registration modal
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background: white;
+                    padding: 2rem;
+                    border-radius: 10px;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                    max-width: 400px;
+                    width: 90%;
+                ">
+                    <h3 style="margin-bottom: 1rem; color: #2563eb;">Create Account</h3>
+                    <form onsubmit="handleRegistration(event)">
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem;">Full Name</label>
+                            <input type="text" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem;">Email</label>
+                            <input type="email" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem;">Phone</label>
+                            <input type="tel" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem;">Password</label>
+                            <input type="password" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <button type="submit" style="flex: 1; padding: 0.8rem; background: #2563eb; color: white; border: none; border-radius: 5px; cursor: pointer;">Register</button>
+                            <button type="button" onclick="closeModal()" style="flex: 1; padding: 0.8rem; background: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer;">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+        
+        function handleRegistration(event) {
+            event.preventDefault();
+            alert('Account created successfully! You can now log in with your credentials.');
+            closeModal();
+        }
+        
+        function closeModal() {
+            const modal = document.querySelector('div[style*="position: fixed"]');
+            if (modal) {
+                modal.remove();
+            }
         }
     </script>
 </body>

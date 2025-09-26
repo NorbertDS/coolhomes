@@ -52,6 +52,9 @@ $pageDescription = "Manage your Cool Homes platform - properties, users, inquiri
                 <a href="#blog" class="menu-item" onclick="showSection('blog')">
                     <i class="fas fa-blog"></i> Blog
                 </a>
+                <a href="admin-import-properties.php" class="menu-item">
+                    <i class="fas fa-download"></i> Import Properties
+                </a>
                 <a href="home" class="menu-item">
                     <i class="fas fa-external-link-alt"></i> View Website
                 </a>
@@ -87,6 +90,48 @@ $pageDescription = "Manage your Cool Homes platform - properties, users, inquiri
                         <div class="stat-card danger">
                             <div class="stat-number">5</div>
                             <div class="stat-label">New Appointments</div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Quick Actions</h5>
+                                </div>
+                                <div class="card-body">
+                                    <a href="admin-import-properties.php" class="btn btn-primary mb-2 w-100">
+                                        <i class="fas fa-download"></i> Import Kenyan Properties
+                                    </a>
+                                    <a href="#properties" class="btn btn-outline-primary mb-2 w-100" onclick="showSection('properties')">
+                                        <i class="fas fa-building"></i> Manage Properties
+                                    </a>
+                                    <a href="#users" class="btn btn-outline-success mb-2 w-100" onclick="showSection('users')">
+                                        <i class="fas fa-users"></i> Manage Users
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Recent Activity</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="activity-item">
+                                        <strong>New Property Added</strong> - Four-bedroom homes in Kitengela
+                                        <small class="text-muted d-block">2 hours ago</small>
+                                    </div>
+                                    <div class="activity-item">
+                                        <strong>User Registration</strong> - New agent joined
+                                        <small class="text-muted d-block">1 day ago</small>
+                                    </div>
+                                    <div class="activity-item">
+                                        <strong>Property Inquiry</strong> - Gaia Brookside property
+                                        <small class="text-muted d-block">2 days ago</small>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

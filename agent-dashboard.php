@@ -1,8 +1,13 @@
 <?php
 session_start();
 
+// Debug: Log session data
+error_log("Agent Dashboard - User ID: " . (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'not set'));
+error_log("Agent Dashboard - User Role: " . (isset($_SESSION['user_role']) ? $_SESSION['user_role'] : 'not set'));
+
 // Check if user is logged in and is agent
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'agent') {
+    error_log("Agent Dashboard - Access denied. Redirecting to login.");
     header('Location: login.php');
     exit;
 }

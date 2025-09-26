@@ -41,7 +41,25 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                 </div>
                 <div class="header-actions">
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        <a href="dashboard.php" class="btn-login">
+                        <?php
+                        // Show appropriate dashboard link based on user role
+                        $dashboardLink = 'dashboard.php'; // Default to admin dashboard
+                        if (isset($_SESSION['user_role'])) {
+                            switch ($_SESSION['user_role']) {
+                                case 'admin':
+                                    $dashboardLink = 'dashboard.php';
+                                    break;
+                                case 'agent':
+                                    $dashboardLink = 'agent-dashboard.php';
+                                    break;
+                                case 'buyer':
+                                case 'seller':
+                                    $dashboardLink = 'buyer-dashboard.php';
+                                    break;
+                            }
+                        }
+                        ?>
+                        <a href="<?php echo $dashboardLink; ?>" class="btn-login">
                             <i class="fas fa-tachometer-alt"></i> Dashboard
                         </a>
                         <a href="logout.php" class="btn-login">

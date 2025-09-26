@@ -92,7 +92,7 @@ if ($_POST && isset($_POST['appointment'])) {
 include 'includes/header.php';
 ?>
 
-<style>
+    <style>
     .property-hero {
         background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
         color: white;
@@ -186,11 +186,11 @@ include 'includes/header.php';
         border: 2px solid #e5e7eb;
         border-radius: 10px;
         padding: 0.75rem;
-        transition: border-color 0.3s ease;
-    }
+            transition: border-color 0.3s ease;
+        }
 
     .form-control:focus {
-        border-color: var(--primary-color);
+            border-color: var(--primary-color);
         box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
     }
 
@@ -207,18 +207,18 @@ include 'includes/header.php';
 
     .btn-submit:hover {
         background: var(--secondary-color);
-        transform: translateY(-2px);
-    }
+            transform: translateY(-2px);
+        }
 
     .alert {
         border-radius: 10px;
         margin-bottom: 1rem;
-    }
-</style>
+        }
+    </style>
 
 <!-- Property Hero -->
 <section class="property-hero">
-    <div class="container">
+            <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html" class="text-white">Home</a></li>
@@ -237,14 +237,14 @@ include 'includes/header.php';
                 <!-- Property Gallery -->
                 <div class="property-gallery">
                     <img src="<?php echo $images[0]['image_url']; ?>" alt="<?php echo htmlspecialchars($property['title']); ?>" class="main-image" id="mainImage">
-                </div>
-                
+                    </div>
+                    
                 <?php if (count($images) > 1): ?>
                 <div class="gallery-thumbnails">
                     <?php foreach ($images as $index => $image): ?>
                     <img src="<?php echo $image['image_url']; ?>" alt="Property Image" class="thumbnail <?php echo $index === 0 ? 'active' : ''; ?>" onclick="changeImage('<?php echo $image['image_url']; ?>', this)">
                     <?php endforeach; ?>
-                </div>
+                        </div>
                 <?php endif; ?>
 
                 <!-- Property Information -->
@@ -289,7 +289,7 @@ include 'includes/header.php';
                             </div>
                         </div>
                     </div>
-                    
+
                     <h4 class="mt-4 mb-3">Description</h4>
                     <p><?php echo nl2br(htmlspecialchars($property['description'])); ?></p>
                     
@@ -301,16 +301,16 @@ include 'includes/header.php';
                         <?php endforeach; ?>
                     </ul>
                     <?php endif; ?>
-                </div>
-            </div>
-            
+                        </div>
+                    </div>
+
             <div class="col-lg-4">
                 <!-- Property Price -->
                 <div class="property-info">
                     <div class="property-price">KSh <?php echo number_format($property['price']); ?></div>
                     <p class="text-muted mb-4">Contact our agent for more information</p>
                     
-                    <div class="d-grid gap-2">
+                        <div class="d-grid gap-2">
                         <a href="tel:<?php echo $property['agent_phone']; ?>" class="btn btn-primary">
                             <i class="fas fa-phone"></i> Call Agent
                         </a>
@@ -319,24 +319,24 @@ include 'includes/header.php';
                         </a>
                     </div>
                 </div>
-                
+
                 <!-- Agent Information -->
                 <div class="property-info">
                     <h5 class="mb-3">Property Agent</h5>
-                    <div class="d-flex align-items-center mb-3">
+                            <div class="d-flex align-items-center mb-3">
                         <div class="agent-avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
                             <?php echo strtoupper(substr($property['agent_name'], 0, 1)); ?>
-                        </div>
-                        <div>
+                                </div>
+                                <div>
                             <h6 class="mb-0"><?php echo htmlspecialchars($property['agent_name']); ?></h6>
-                            <small class="text-muted">Real Estate Agent</small>
-                        </div>
-                    </div>
+                                    <small class="text-muted">Real Estate Agent</small>
+                                </div>
+                            </div>
                     <p class="text-muted">
                         <i class="fas fa-phone me-2"></i><?php echo $property['agent_phone']; ?><br>
                         <i class="fas fa-envelope me-2"></i><?php echo $property['agent_email']; ?>
-                    </p>
-                </div>
+                            </p>
+                        </div>
                 
                 <!-- Inquiry Form -->
                 <div class="contact-form">
@@ -351,7 +351,7 @@ include 'includes/header.php';
                     <?php if (isset($inquiryError)): ?>
                     <div class="alert alert-danger">
                         <i class="fas fa-exclamation-circle"></i> <?php echo $inquiryError; ?>
-                    </div>
+                </div>
                     <?php endif; ?>
                     
                     <form method="POST">
@@ -359,25 +359,25 @@ include 'includes/header.php';
                         <div class="form-group">
                             <label class="form-label">Name</label>
                             <input type="text" class="form-control" name="name" required>
-                        </div>
+                            </div>
                         <div class="form-group">
                             <label class="form-label">Email</label>
                             <input type="email" class="form-control" name="email" required>
-                        </div>
+                            </div>
                         <div class="form-group">
                             <label class="form-label">Phone</label>
                             <input type="tel" class="form-control" name="phone">
-                        </div>
+                            </div>
                         <div class="form-group">
                             <label class="form-label">Message</label>
                             <textarea class="form-control" name="message" rows="4" required></textarea>
-                        </div>
+                            </div>
                         <button type="submit" class="btn-submit">
                             <i class="fas fa-paper-plane"></i> Send Inquiry
                         </button>
                     </form>
-                </div>
-                
+        </div>
+
                 <!-- Appointment Booking -->
                 <div class="contact-form">
                     <h5 class="mb-3">Book Viewing</h5>
@@ -385,13 +385,13 @@ include 'includes/header.php';
                     <?php if (isset($appointmentSuccess)): ?>
                     <div class="alert alert-success">
                         <i class="fas fa-check-circle"></i> Your appointment has been booked successfully!
-                    </div>
+            </div>
                     <?php endif; ?>
                     
                     <?php if (isset($appointmentError)): ?>
                     <div class="alert alert-danger">
                         <i class="fas fa-exclamation-circle"></i> <?php echo $appointmentError; ?>
-                    </div>
+        </div>
                     <?php endif; ?>
                     
                     <form method="POST">
@@ -399,7 +399,7 @@ include 'includes/header.php';
                         <div class="form-group">
                             <label class="form-label">Name</label>
                             <input type="text" class="form-control" name="appointment_name" required>
-                        </div>
+                </div>
                         <div class="form-group">
                             <label class="form-label">Email</label>
                             <input type="email" class="form-control" name="appointment_email" required>
@@ -413,8 +413,8 @@ include 'includes/header.php';
                                 <div class="form-group">
                                     <label class="form-label">Date</label>
                                     <input type="date" class="form-control" name="appointment_date" required>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">Time</label>
@@ -427,31 +427,31 @@ include 'includes/header.php';
                                         <option value="15:00">3:00 PM</option>
                                         <option value="16:00">4:00 PM</option>
                                     </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Notes (Optional)</label>
-                            <textarea class="form-control" name="appointment_notes" rows="3"></textarea>
-                        </div>
-                        <button type="submit" class="btn-submit">
-                            <i class="fas fa-calendar"></i> Book Appointment
-                        </button>
-                    </form>
-                </div>
             </div>
         </div>
     </div>
+                        <div class="form-group">
+                            <label class="form-label">Notes (Optional)</label>
+                            <textarea class="form-control" name="appointment_notes" rows="3"></textarea>
+                </div>
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-calendar"></i> Book Appointment
+                        </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
 </section>
 
-<script>
+    <script>
 function changeImage(imageSrc, thumbnail) {
     document.getElementById('mainImage').src = imageSrc;
-    
-    // Update active thumbnail
+                    
+                    // Update active thumbnail
     document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
     thumbnail.classList.add('active');
-}
-</script>
+                }
+    </script>
 
 <?php include 'includes/footer.php'; ?>

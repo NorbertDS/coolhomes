@@ -40,6 +40,9 @@ if ($_POST && isset($_POST['login'])) {
         $_SESSION['user_name'] = $user['name'];
         $_SESSION['user_role'] = $user['role'];
         
+        // Debug: Log the session data
+        error_log("Login successful for: " . $email . " Role: " . $user['role']);
+        
         // Redirect based on role
         switch ($user['role']) {
             case 'admin':

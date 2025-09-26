@@ -419,6 +419,9 @@
             <a href="#content" class="menu-item" onclick="showSection('content')">
                 <i class="fas fa-edit"></i> Content
             </a>
+            <a href="#blog" class="menu-item" onclick="showSection('blog')">
+                <i class="fas fa-blog"></i> Blog
+            </a>
             <a href="#finance" class="menu-item" onclick="showSection('finance')">
                 <i class="fas fa-dollar-sign"></i> Finance
             </a>
@@ -816,6 +819,60 @@
             </div>
         </div>
 
+        <!-- Blog Section -->
+        <div id="blog-section" style="display: none;">
+            <div class="content-section">
+                <div class="section-header">
+                    <h3 class="section-title">Blog Management</h3>
+                    <button class="btn-primary" onclick="showAddBlogModal()">
+                        <i class="fas fa-plus"></i> Add Blog Post
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Views</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Kenya's Real Estate Market Trends 2024</td>
+                                <td>Norbert</td>
+                                <td>Jan 26, 2025</td>
+                                <td><span class="badge badge-success">Published</span></td>
+                                <td>1,234</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-outline-primary btn-sm" onclick="editBlog('blog1')">Edit</button>
+                                        <button class="btn btn-outline-danger btn-sm" onclick="deleteBlog('blog1')">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Rental Market Analysis: Nairobi vs Mombasa</td>
+                                <td>Norbert</td>
+                                <td>Jan 10, 2025</td>
+                                <td><span class="badge badge-success">Published</span></td>
+                                <td>856</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-outline-primary btn-sm" onclick="editBlog('blog4')">Edit</button>
+                                        <button class="btn btn-outline-danger btn-sm" onclick="deleteBlog('blog4')">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
         <!-- Finance Section -->
         <div id="finance-section" style="display: none;">
             <div class="content-section">
@@ -904,7 +961,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form onsubmit="handleAddProperty(event)">
+                    <form id="addPropertyForm" onsubmit="handleAddProperty(event)">
                         <div class="row">
                                                 <div class="col-md-6">
                                 <div class="mb-3">
@@ -966,7 +1023,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn-primary">Add Property</button>
+                    <button type="submit" form="addPropertyForm" class="btn-primary">Add Property</button>
                 </div>
             </div>
         </div>
@@ -982,7 +1039,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form onsubmit="handleAddUser(event)">
+                    <form id="addUserForm" onsubmit="handleAddUser(event)">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -1026,7 +1083,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn-primary">Add User</button>
+                    <button type="submit" form="addUserForm" class="btn-primary">Add User</button>
                 </div>
             </div>
         </div>
@@ -1085,8 +1142,8 @@
                                     </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn-primary">Save Changes</button>
-                                </div>
+                    <button type="button" class="btn-primary" onclick="handleEditUser()">Save Changes</button>
+                </div>
                             </div>
         </div>
     </div>
@@ -1100,8 +1157,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form onsubmit="handleAddContent(event)">
-                                        <div class="mb-3">
+                    <form id="addContentForm" onsubmit="handleAddContent(event)">
+                        <div class="mb-3">
                             <label class="form-label">Title</label>
                             <input type="text" class="form-control" required>
                                         </div>
@@ -1134,7 +1191,7 @@
                     </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn-primary">Add Content</button>
+                    <button type="submit" form="addContentForm" class="btn-primary">Add Content</button>
                 </div>
             </div>
         </div>
@@ -1185,7 +1242,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form onsubmit="handleReplyInquiry(event)">
+                    <form id="replyInquiryForm" onsubmit="handleReplyInquiry(event)">
                         <div class="mb-3">
                             <label class="form-label">To</label>
                             <input type="email" class="form-control" value="john@email.com" readonly>
@@ -1210,7 +1267,7 @@ Cool Homes</textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn-primary">Send Reply</button>
+                    <button type="submit" form="replyInquiryForm" class="btn-primary">Send Reply</button>
                 </div>
             </div>
         </div>
@@ -1247,6 +1304,71 @@ Cool Homes</textarea>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn-primary" onclick="confirmAppointment('apt1')">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Blog Post Modal -->
+    <div class="modal fade" id="addBlogModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Blog Post</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addBlogForm" onsubmit="handleAddBlog(event)">
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Excerpt</label>
+                            <textarea class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Content</label>
+                            <textarea class="form-control" rows="8" required></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Author</label>
+                                    <input type="text" class="form-control" value="Norbert" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Category</label>
+                                    <select class="form-control" required>
+                                        <option value="">Select Category</option>
+                                        <option value="market-trends">Market Trends</option>
+                                        <option value="investment">Investment</option>
+                                        <option value="rental">Rental</option>
+                                        <option value="affordable-housing">Affordable Housing</option>
+                                        <option value="commercial">Commercial</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Featured Image</label>
+                            <input type="file" class="form-control" accept="image/*" onchange="previewBlogImage(this)">
+                            <div id="blog-image-preview" class="mt-2"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <select class="form-control" required>
+                                <option value="draft">Draft</option>
+                                <option value="published">Published</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" form="addBlogForm" class="btn-primary">Add Blog Post</button>
                 </div>
             </div>
         </div>
@@ -1313,6 +1435,81 @@ Cool Homes</textarea>
         // User management functions
         function editUser(userId) {
             new bootstrap.Modal(document.getElementById('editUserModal')).show();
+        }
+
+        function handleEditUser() {
+            // Get form data from edit user modal
+            const form = document.querySelector('#editUserModal form');
+            const name = form.querySelector('input[type="text"]').value;
+            const email = form.querySelector('input[type="email"]').value;
+            const phone = form.querySelector('input[type="tel"]').value;
+            const role = form.querySelector('select').value;
+            const status = form.querySelectorAll('select')[1].value;
+            
+            // Validate required fields
+            if (!name || !email || !phone || !role || !status) {
+                showNotification('error', 'Validation Error', 'Please fill in all required fields.');
+                return;
+            }
+            
+            // Show professional success notification
+            showNotification('success', `User "${name}" updated successfully!`, 'The user information has been updated.');
+            
+            bootstrap.Modal.getInstance(document.getElementById('editUserModal')).hide();
+        }
+
+        // Blog management functions
+        function showAddBlogModal() {
+            new bootstrap.Modal(document.getElementById('addBlogModal')).show();
+        }
+
+        function handleAddBlog(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const form = event.target;
+            const title = form.querySelector('input[type="text"]').value;
+            const excerpt = form.querySelector('textarea').value;
+            const content = form.querySelectorAll('textarea')[1].value;
+            const author = form.querySelectorAll('input[type="text"]')[1].value;
+            const category = form.querySelector('select').value;
+            const status = form.querySelectorAll('select')[1].value;
+            
+            // Validate required fields
+            if (!title || !excerpt || !content || !author || !category || !status) {
+                showNotification('error', 'Validation Error', 'Please fill in all required fields.');
+                return;
+            }
+            
+            // Show professional success notification
+            showNotification('success', `Blog post "${title}" added successfully!`, 'The blog post has been created and saved.');
+            
+            // Close modal
+            bootstrap.Modal.getInstance(document.getElementById('addBlogModal')).hide();
+            
+            // Reset form
+            form.reset();
+        }
+
+        function editBlog(blogId) {
+            showNotification('info', 'Edit Blog Post', `Editing blog post ${blogId}. This feature will be implemented soon.`);
+        }
+
+        function deleteBlog(blogId) {
+            if (confirm('Are you sure you want to delete this blog post? This action cannot be undone.')) {
+                showNotification('success', 'Blog Post Deleted', `Blog post ${blogId} has been deleted successfully.`);
+            }
+        }
+
+        function previewBlogImage(input) {
+            const preview = document.getElementById('blog-image-preview');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `<img src="${e.target.result}" class="img-thumbnail" style="max-width: 200px; max-height: 150px;">`;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
         }
 
         function deactivateUser(userId) {

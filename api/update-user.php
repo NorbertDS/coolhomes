@@ -14,23 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $pdo = getDBConnection();
         
-        $user_id = intval($_POST['user_id'] ?? 0);
-        
-        if ($user_id <= 0) {
-            echo json_encode(['success' => false, 'message' => 'Invalid user ID']);
-            exit;
-        }
-        
-        // Get form data
-        $name = $_POST['name'] ?? '';
-        $email = $_POST['email'] ?? '';
-        $phone = $_POST['phone'] ?? '';
-        $role = $_POST['role'] ?? 'buyer';
-        $status = $_POST['status'] ?? 'active';
-        $bio = $_POST['bio'] ?? '';
-        $specialization = $_POST['specialization'] ?? '';
-        $experience_years = intval($_POST['experience_years'] ?? 0);
-        $commission_rate = floatval($_POST['commission_rate'] ?? 2.50);
+        $user_id = intval($_POST['user_id']);
+        $name = trim($_POST['name']);
+        $email = trim($_POST['email']);
+        $phone = trim($_POST['phone']);
+        $role = trim($_POST['role']);
+        $status = trim($_POST['status']);
+        $bio = trim($_POST['bio']);
         
         // Validate required fields
         if (empty($name) || empty($email) || empty($role)) {
@@ -39,9 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         // Check if email already exists for another user
-        $check_stmt = $pdo->prepare("SELECT id FROM users WHERE email = ? AND id != ?");
-        $check_stmt->execute([$email, $user_id]);
-        if ($check_stmt->fetch()) {
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ? AND id != ?");
+        $stmt->execute([$email, $user_id]);
+        if ($stmt->fetch()) {
             echo json_encode(['success' => false, 'message' => 'Email already exists for another user']);
             exit;
         }
@@ -49,22 +39,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Update user
         $stmt = $pdo->prepare("
             UPDATE users 
-            SET name = ?, email = ?, phone = ?, role = ?, status = ?, bio = ?, 
-                specialization = ?, experience_years = ?, commission_rate = ?, updated_at = CURRENT_TIMESTAMP
-            WHERE id = ?
+            SET name = ?, email = ?, phone = ?, role = ?, status = ?, bio = ?, updated_at = NOW()
+            WHERE id = ? AND role != 'admin'
         ");
         
-        $stmt->execute([
-            $name, $email, $phone, $role, $status, $bio, $specialization, $experience_years, $commission_rate, $user_id
+        $result = $stmt->execute([
+            $name, $email, $phone, $role, $status, $bio, $user_id
         ]);
         
-        if ($stmt->rowCount() > 0) {
-            echo json_encode([
-                'success' => true, 
-                'message' => 'User updated successfully'
-            ]);
+        if ($result && $stmt->rowCount() > 0) {
+            echo json_encode(['success' => true, 'message' => 'User updated successfully']);
         } else {
-            echo json_encode(['success' => false, 'message' => 'User not found or no changes made']);
+            echo json_encode(['success' => false, 'message' => 'Failed to update user or user not found']);
         }
         
     } catch (Exception $e) {

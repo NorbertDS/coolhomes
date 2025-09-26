@@ -1420,10 +1420,40 @@ Cool Homes</textarea>
 
         // Modal functions
         function showAddPropertyModal() {
+            // Reset form for add operation
+            const form = document.getElementById('addPropertyForm');
+            form.reset();
+            form.action = 'api/add-property.php';
+            
+            // Remove any hidden property_id field
+            const propertyIdField = form.querySelector('input[name="property_id"]');
+            if (propertyIdField) {
+                propertyIdField.remove();
+            }
+            
+            // Reset modal title and button
+            document.querySelector('#addPropertyModal .modal-title').textContent = 'Add New Property';
+            document.querySelector('#addPropertyModal .btn-primary').textContent = 'Add Property';
+            
             new bootstrap.Modal(document.getElementById('addPropertyModal')).show();
         }
 
         function showAddUserModal() {
+            // Reset form for add operation
+            const form = document.getElementById('addUserForm');
+            form.reset();
+            form.action = 'api/add-user.php';
+            
+            // Remove any hidden user_id field
+            const userIdField = form.querySelector('input[name="user_id"]');
+            if (userIdField) {
+                userIdField.remove();
+            }
+            
+            // Reset modal title and button
+            document.querySelector('#addUserModal .modal-title').textContent = 'Add New User';
+            document.querySelector('#addUserModal .btn-primary').textContent = 'Add User';
+            
             new bootstrap.Modal(document.getElementById('addUserModal')).show();
         }
 
@@ -1433,7 +1463,44 @@ Cool Homes</textarea>
 
         // Property management functions
         function editProperty(propertyId) {
-            alert(`Edit property ${propertyId} - This would open the property edit form with pre-filled data.`);
+            // Load property data
+            fetch(`api/get-property.php?id=${propertyId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const property = data.data;
+                    
+                    // Pre-fill the form (we'll use the add form for now)
+                    const form = document.getElementById('addPropertyForm');
+                    form.querySelector('input[name="title"]').value = property.title || '';
+                    form.querySelector('input[name="location"]').value = property.location || '';
+                    form.querySelector('input[name="price"]').value = property.price || '';
+                    form.querySelector('input[name="bedrooms"]').value = property.bedrooms || '';
+                    form.querySelector('input[name="bathrooms"]').value = property.bathrooms || '';
+                    form.querySelector('input[name="area"]').value = property.area || '';
+                    form.querySelector('select[name="type"]').value = property.type || '';
+                    form.querySelector('textarea[name="description"]').value = property.description || '';
+                    form.querySelector('textarea[name="features"]').value = property.features || '';
+                    form.querySelector('select[name="status"]').value = property.status || '';
+                    
+                    // Change form action to update
+                    form.action = 'api/update-property.php';
+                    form.querySelector('input[name="property_id"]') ? 
+                        form.querySelector('input[name="property_id"]').value = propertyId :
+                        form.insertAdjacentHTML('afterbegin', `<input type="hidden" name="property_id" value="${propertyId}">`);
+                    
+                    // Change modal title
+                    document.querySelector('#addPropertyModal .modal-title').textContent = 'Edit Property';
+                    document.querySelector('#addPropertyModal .btn-primary').textContent = 'Update Property';
+                    
+                    new bootstrap.Modal(document.getElementById('addPropertyModal')).show();
+                } else {
+                    showNotification('error', 'Error', data.message || 'Failed to load property data.');
+                }
+            })
+            .catch(error => {
+                showNotification('error', 'Error', 'Failed to load property data.');
+            });
         }
 
         function deleteProperty(propertyId) {
@@ -1445,7 +1512,40 @@ Cool Homes</textarea>
 
         // User management functions
         function editUser(userId) {
-            new bootstrap.Modal(document.getElementById('editUserModal')).show();
+            // Load user data
+            fetch(`api/get-user.php?id=${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const user = data.data;
+                    
+                    // Pre-fill the form (we'll use the add form for now)
+                    const form = document.getElementById('addUserForm');
+                    form.querySelector('input[name="name"]').value = user.name || '';
+                    form.querySelector('input[name="email"]').value = user.email || '';
+                    form.querySelector('input[name="phone"]').value = user.phone || '';
+                    form.querySelector('select[name="role"]').value = user.role || '';
+                    form.querySelector('select[name="status"]').value = user.status || '';
+                    form.querySelector('textarea[name="bio"]').value = user.bio || '';
+                    
+                    // Change form action to update
+                    form.action = 'api/update-user.php';
+                    form.querySelector('input[name="user_id"]') ? 
+                        form.querySelector('input[name="user_id"]').value = userId :
+                        form.insertAdjacentHTML('afterbegin', `<input type="hidden" name="user_id" value="${userId}">`);
+                    
+                    // Change modal title
+                    document.querySelector('#addUserModal .modal-title').textContent = 'Edit User';
+                    document.querySelector('#addUserModal .btn-primary').textContent = 'Update User';
+                    
+                    new bootstrap.Modal(document.getElementById('addUserModal')).show();
+                } else {
+                    showNotification('error', 'Error', data.message || 'Failed to load user data.');
+                }
+            })
+            .catch(error => {
+                showNotification('error', 'Error', 'Failed to load user data.');
+            });
         }
 
         function handleEditUser() {
@@ -1590,15 +1690,20 @@ Cool Homes</textarea>
                 return;
             }
             
+            // Determine if this is an update or add operation
+            const isUpdate = formData.get('property_id');
+            const apiEndpoint = isUpdate ? 'api/update-property.php' : 'api/add-property.php';
+            
             // Send data to server
-            fetch('api/add-property.php', {
+            fetch(apiEndpoint, {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    showNotification('success', `Property "${title}" added successfully!`, 'The property has been created and saved.');
+                    const action = isUpdate ? 'updated' : 'added';
+                    showNotification('success', `Property "${title}" ${action} successfully!`, `The property has been ${action} and saved.`);
                     bootstrap.Modal.getInstance(document.getElementById('addPropertyModal')).hide();
                     form.reset();
                     // Refresh properties list
@@ -1628,15 +1733,20 @@ Cool Homes</textarea>
                 return;
             }
             
+            // Determine if this is an update or add operation
+            const isUpdate = formData.get('user_id');
+            const apiEndpoint = isUpdate ? 'api/update-user.php' : 'api/add-user.php';
+            
             // Send data to server
-            fetch('api/add-user.php', {
+            fetch(apiEndpoint, {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    showNotification('success', `User "${name}" added successfully!`, 'The user has been created and saved.');
+                    const action = isUpdate ? 'updated' : 'added';
+                    showNotification('success', `User "${name}" ${action} successfully!`, `The user has been ${action} and saved.`);
                     bootstrap.Modal.getInstance(document.getElementById('addUserModal')).hide();
                     form.reset();
                     // Refresh users list

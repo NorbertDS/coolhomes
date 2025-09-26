@@ -2,11 +2,35 @@
   "version": 2,
   "builds": [
     {
-      "src": "index.html",
+      "src": "**/*.html",
       "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/properties",
+      "dest": "/properties.html"
+    },
+    {
+      "src": "/property-details",
+      "dest": "/property-details.html"
+    },
+    {
+      "src": "/blog-details",
+      "dest": "/blog-details.html"
+    },
+    {
+      "src": "/dashboard",
+      "dest": "/dashboard.html"
+    },
+    {
+      "src": "/login",
+      "dest": "/login.html"
+    },
     {
       "src": "/(.*)",
       "dest": "/$1"

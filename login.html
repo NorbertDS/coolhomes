@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Cool Homes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .login-card {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .login-header {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            border-radius: 1rem 1rem 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card login-card">
+                    <div class="card-header login-header text-white text-center py-4">
+                        <h3 class="mb-0">
+                            <i class="fas fa-home me-2"></i>Cool Homes
+                        </h3>
+                        <p class="mb-0 mt-2">Sign in to your account</p>
+                    </div>
+                    <div class="card-body p-4">
+                        <form onsubmit="login(event)">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="remember">
+                                <label class="form-check-label" for="remember">Remember me</label>
+                            </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                            </button>
+                            <a href="index.html" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Website
+                            </a>
+                        </div>
+                        </form>
+                        <hr class="my-4">
+                        <div class="text-center">
+                            <p class="text-muted">Don't have an account? 
+                                <a href="#" onclick="showRegister()" class="text-primary text-decoration-none">Create one here</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function login(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Demo login credentials
+            const validCredentials = {
+                'admin@coolhomes.co.ke': 'admin123',
+                'agent@coolhomes.co.ke': 'agent123',
+                'buyer@coolhomes.co.ke': 'buyer123'
+            };
+            
+            if (validCredentials[email] && validCredentials[email] === password) {
+                // Store login status
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('userRole', email.includes('admin') ? 'admin' : email.includes('agent') ? 'agent' : 'buyer');
+                
+                alert('Login successful! Welcome to Cool Homes dashboard.');
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('Invalid email or password. Please try again.\n\nDemo credentials:\nadmin@coolhomes.co.ke / admin123\nagent@coolhomes.co.ke / agent123\nbuyer@coolhomes.co.ke / buyer123');
+            }
+        }
+        
+        function showRegister() {
+            alert('Registration form would open here. In a real application, this would show a registration modal or redirect to a registration page.');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Details - Cool Homes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #f59e0b;
+            --accent-color: #10b981;
+            --dark-color: #1f2937;
+            --light-color: #f8fafc;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark-color);
+        }
+
+        /* Header Styles */
+        .main-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-top {
+            background: rgba(0,0,0,0.1);
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .header-top a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            margin-right: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .header-top a:hover {
+            color: white;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .property-main-image {
+            height: 500px;
+            object-fit: cover;
+        }
+        .thumbnail-img {
+            height: 80px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+        .thumbnail-img.active,
+        .thumbnail-img:hover {
+            border-color: var(--primary-color);
+        }
+        .stat-card {
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+        .agent-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .similar-property {
+            transition: transform 0.3s ease;
+        }
+        .similar-property:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <a href="tel:+254700123456"><i class="fas fa-phone me-1"></i>+254 700 123 456</a>
+                        <a href="mailto:info@coolhomes.co.ke"><i class="fas fa-envelope me-1"></i>info@coolhomes.co.ke</a>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <span class="text-light">Follow us for latest updates</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <i class="fas fa-home me-2"></i>Cool Homes
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="properties.html">Properties</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#blog">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container py-5">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="test.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="test.html#properties">Properties</a></li>
+                <li class="breadcrumb-item active" id="property-breadcrumb">Property Details</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <!-- Property Images -->
+            <div class="col-lg-8">
+                <div class="property-gallery mb-4">
+                    <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="carousel-inner">
+                            <!-- Images will be loaded dynamically -->
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                    
+                    <!-- Thumbnail Gallery -->
+                    <div class="thumbnail-gallery mt-3">
+                        <div class="row g-2" id="thumbnail-gallery">
+                            <!-- Thumbnails will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property Details -->
+                <div class="property-details">
+                    <h1 class="h2 mb-3" id="property-title">Property Title</h1>
+                    <p class="text-muted mb-4" id="property-location">
+                        <i class="fas fa-map-marker-alt me-2"></i>Location
+                    </p>
+
+                    <!-- Property Stats -->
+                    <div class="row mb-4">
+                        <div class="col-md-3 col-6 mb-3">
+                            <div class="stat-card text-center p-3 border rounded">
+                                <i class="fas fa-bed fa-2x text-primary mb-2"></i>
+                                <h5 class="mb-1" id="property-beds">0</h5>
+                                <small class="text-muted">Bedrooms</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <div class="stat-card text-center p-3 border rounded">
+                                <i class="fas fa-bath fa-2x text-primary mb-2"></i>
+                                <h5 class="mb-1" id="property-baths">0</h5>
+                                <small class="text-muted">Bathrooms</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <div class="stat-card text-center p-3 border rounded">
+                                <i class="fas fa-car fa-2x text-primary mb-2"></i>
+                                <h5 class="mb-1" id="property-garage">0</h5>
+                                <small class="text-muted">Garage</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <div class="stat-card text-center p-3 border rounded">
+                                <i class="fas fa-ruler-combined fa-2x text-primary mb-2"></i>
+                                <h5 class="mb-1" id="property-area">0</h5>
+                                <small class="text-muted">Sq Ft</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="description mb-4">
+                        <h4 class="mb-3">Description</h4>
+                        <p class="text-muted" id="property-description">Property description will be loaded here.</p>
+                    </div>
+
+                    <!-- Amenities -->
+                    <div class="amenities mb-4">
+                        <h4 class="mb-3">Amenities</h4>
+                        <div class="row" id="property-amenities">
+                            <!-- Amenities will be loaded dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="features mb-4">
+                        <h4 class="mb-3">Features</h4>
+                        <div class="row" id="property-features">
+                            <!-- Features will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Price Card -->
+                <div class="card price-card mb-4 shadow">
+                    <div class="card-body text-center">
+                        <h2 class="text-primary mb-2" id="property-price">KSh 0</h2>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary" onclick="toggleFavorite()">
+                                <i class="fas fa-heart me-1"></i>
+                                <span id="favorite-text">Add to Favorites</span>
+                            </button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#inquiryModal">
+                                <i class="fas fa-envelope me-1"></i>Send Inquiry
+                            </button>
+                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#appointmentModal">
+                                <i class="fas fa-calendar me-1"></i>Schedule Visit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agent Info -->
+                <div class="card agent-card mb-4 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Contact Agent</h5>
+                        <div class="agent-info">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="agent-avatar me-3">
+                                    <i class="fas fa-user fa-2x text-primary"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1" id="agent-name">Agent Name</h6>
+                                    <small class="text-muted">Real Estate Agent</small>
+                                </div>
+                            </div>
+                            <p class="mb-2">
+                                <i class="fas fa-phone me-2"></i><span id="agent-phone">+254 700 123 456</span>
+                            </p>
+                            <p class="mb-3">
+                                <i class="fas fa-envelope me-2"></i><span id="agent-email">agent@coolhomes.co.ke</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property Info -->
+                <div class="card property-info-card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Property Information</h5>
+                        <div class="property-info">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Property ID:</span>
+                                <strong id="property-id">PROP-001</strong>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Type:</span>
+                                <strong id="property-type">Apartment</strong>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Status:</span>
+                                <strong class="text-success" id="property-status">For Sale</strong>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Year Built:</span>
+                                <strong id="property-year">2020</strong>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Listed:</span>
+                                <strong id="property-listed">Dec 15, 2024</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Similar Properties -->
+        <div class="similar-properties mt-5">
+            <h3 class="mb-4">Similar Properties</h3>
+            <div class="row" id="similar-properties">
+                <!-- Similar properties will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Inquiry Modal -->
+    <div class="modal fade" id="inquiryModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Send Inquiry</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form onsubmit="sendInquiry(event)">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="inquiry-name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="inquiry-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inquiry-email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="inquiry-email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inquiry-phone" class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="inquiry-phone">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inquiry-type" class="form-label">Inquiry Type</label>
+                            <select class="form-select" id="inquiry-type" required>
+                                <option value="general">General Inquiry</option>
+                                <option value="viewing">Schedule Viewing</option>
+                                <option value="price">Price Information</option>
+                                <option value="financing">Financing Options</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inquiry-message" class="form-label">Message</label>
+                            <textarea class="form-control" id="inquiry-message" rows="4" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Send Inquiry</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Appointment Modal -->
+    <div class="modal fade" id="appointmentModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Schedule Property Visit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form onsubmit="scheduleAppointment(event)">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="appointment-date" class="form-label">Preferred Date & Time</label>
+                            <input type="datetime-local" class="form-control" id="appointment-date" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="appointment-phone" class="form-label">Contact Phone</label>
+                            <input type="tel" class="form-control" id="appointment-phone">
+                        </div>
+                        <div class="mb-3">
+                            <label for="appointment-notes" class="form-label">Additional Notes</label>
+                            <textarea class="form-control" id="appointment-notes" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Schedule Visit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Property data
+        const properties = {
+            'property1': {
+                title: 'Luxury Apartment in Westlands',
+                price: 'KSh 25,000,000',
+                location: 'Westlands, Nairobi',
+                beds: 3,
+                baths: 2,
+                garage: 1,
+                area: '1200',
+                description: 'Modern luxury apartment in the heart of Westlands with stunning city views, premium amenities, and 24/7 security. This beautifully designed apartment features high-end finishes, spacious living areas, and modern appliances. Perfect for professionals working in the CBD.',
+                amenities: ['Swimming Pool', 'Gym', '24/7 Security', 'Parking', 'Elevator', 'Balcony'],
+                features: ['City Views', 'Hardwood Floors', 'Stainless Appliances', 'Air Conditioning', 'Modern Kitchen', 'Walk-in Closet'],
+                type: 'Apartment',
+                status: 'For Sale',
+                year: '2020',
+                listed: 'Dec 15, 2024',
+                id: 'PROP-001',
+                images: ['26-Mzizi-Court.webp', 'Loft-Residences.webp', 'Riverbank.webp'],
+                agent: {
+                    name: 'Sarah Johnson',
+                    phone: '+254 700 123 456',
+                    email: 'sarah@coolhomes.co.ke'
+                }
+            },
+            'property2': {
+                title: 'Modern Villa in Karen',
+                price: 'KSh 45,000,000',
+                location: 'Karen, Nairobi',
+                beds: 4,
+                baths: 3,
+                garage: 2,
+                area: '2500',
+                description: 'Spacious family villa in Karen with beautiful gardens, swimming pool, and close to international schools. This stunning property offers privacy, security, and luxury living in one of Nairobi\'s most prestigious neighborhoods.',
+                amenities: ['Swimming Pool', 'Garden', 'Security', 'Parking', 'Maid\'s Quarters', 'Study Room'],
+                features: ['Garden Views', 'Swimming Pool', 'Modern Kitchen', 'Fireplace', 'Large Windows', 'Private Garden'],
+                type: 'Villa',
+                status: 'For Sale',
+                year: '2018',
+                listed: 'Dec 10, 2024',
+                id: 'PROP-002',
+                images: ['Loft-Residences.webp', '26-Mzizi-Court.webp', 'The-One-at-Two-Rivers.webp'],
+                agent: {
+                    name: 'John Smith',
+                    phone: '+254 700 234 567',
+                    email: 'john@coolhomes.co.ke'
+                }
+            },
+            'property3': {
+                title: 'Beachfront Apartment in Mombasa',
+                price: 'KSh 8,500,000',
+                location: 'Nyali, Mombasa',
+                beds: 2,
+                baths: 2,
+                garage: 0,
+                area: '1000',
+                description: 'Stunning beachfront apartment with ocean views, modern finishes, and direct beach access. Wake up to the sound of waves and enjoy breathtaking sunsets from your private balcony.',
+                amenities: ['Beach Access', 'Swimming Pool', 'Security', 'Parking', 'Balcony', 'Ocean Views'],
+                features: ['Ocean Views', 'Modern Design', 'Beach Access', 'Balcony', 'Air Conditioning', 'Furnished'],
+                type: 'Apartment',
+                status: 'For Sale',
+                year: '2021',
+                listed: 'Dec 5, 2024',
+                id: 'PROP-003',
+                images: ['Riverbank.webp', '26-Mzizi-Court.webp', 'Loft-Residences.webp'],
+                agent: {
+                    name: 'Mike Davis',
+                    phone: '+254 700 345 678',
+                    email: 'mike@coolhomes.co.ke'
+                }
+            },
+            'property4': {
+                title: 'Elegant Townhouse in Runda',
+                price: 'KSh 18,000,000',
+                location: 'Runda, Nairobi',
+                beds: 3,
+                baths: 2,
+                garage: 1,
+                area: '1800',
+                description: 'Elegant townhouse in prestigious Runda with private garden, modern kitchen, and quiet neighborhood. Perfect for families seeking a peaceful environment with easy access to the city.',
+                amenities: ['Private Garden', 'Security', 'Parking', 'Study Room', 'Balcony', 'Modern Kitchen'],
+                features: ['Garden Views', 'Modern Kitchen', 'Hardwood Floors', 'Large Windows', 'Private Garden', 'Quiet Neighborhood'],
+                type: 'Townhouse',
+                status: 'For Sale',
+                year: '2019',
+                listed: 'Dec 1, 2024',
+                id: 'PROP-004',
+                images: ['The-One-at-Two-Rivers.webp', 'Loft-Residences.webp', '26-Mzizi-Court.webp'],
+                agent: {
+                    name: 'Emily Wilson',
+                    phone: '+254 700 456 789',
+                    email: 'emily@coolhomes.co.ke'
+                }
+            }
+        };
+
+        // Load property details based on URL parameter
+        function loadPropertyDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const propertyId = urlParams.get('id') || 'property1';
+            const property = properties[propertyId];
+            
+            if (property) {
+                // Update page title and breadcrumb
+                document.title = property.title + ' - Cool Homes';
+                document.getElementById('property-breadcrumb').textContent = property.title;
+                
+                // Update property details
+                document.getElementById('property-title').textContent = property.title;
+                document.getElementById('property-location').innerHTML = `<i class="fas fa-map-marker-alt me-2"></i>${property.location}`;
+                document.getElementById('property-price').textContent = property.price;
+                document.getElementById('property-beds').textContent = property.beds;
+                document.getElementById('property-baths').textContent = property.baths;
+                document.getElementById('property-garage').textContent = property.garage;
+                document.getElementById('property-area').textContent = property.area;
+                document.getElementById('property-description').textContent = property.description;
+                document.getElementById('property-type').textContent = property.type;
+                document.getElementById('property-status').textContent = property.status;
+                document.getElementById('property-year').textContent = property.year;
+                document.getElementById('property-listed').textContent = property.listed;
+                document.getElementById('property-id').textContent = property.id;
+                
+                // Update agent info
+                document.getElementById('agent-name').textContent = property.agent.name;
+                document.getElementById('agent-phone').textContent = property.agent.phone;
+                document.getElementById('agent-email').textContent = property.agent.email;
+                
+                // Load images
+                loadPropertyImages(property.images);
+                
+                // Load amenities
+                loadAmenities(property.amenities);
+                
+                // Load features
+                loadFeatures(property.features);
+                
+                // Load similar properties
+                loadSimilarProperties(propertyId);
+            }
+        }
+
+        function loadPropertyImages(images) {
+            const carouselInner = document.getElementById('carousel-inner');
+            const thumbnailGallery = document.getElementById('thumbnail-gallery');
+            
+            carouselInner.innerHTML = '';
+            thumbnailGallery.innerHTML = '';
+            
+            images.forEach((image, index) => {
+                // Carousel items
+                const carouselItem = document.createElement('div');
+                carouselItem.className = `carousel-item ${index === 0 ? 'active' : ''}`;
+                carouselItem.innerHTML = `<img src="${image}" alt="Property Image" class="d-block w-100 property-main-image">`;
+                carouselInner.appendChild(carouselItem);
+                
+                // Thumbnails
+                const thumbnailCol = document.createElement('div');
+                thumbnailCol.className = 'col-3';
+                thumbnailCol.innerHTML = `
+                    <img src="${image}" alt="Property Thumbnail" class="img-fluid thumbnail-img ${index === 0 ? 'active' : ''}" 
+                         data-bs-target="#propertyCarousel" data-bs-slide-to="${index}">
+                `;
+                thumbnailGallery.appendChild(thumbnailCol);
+            });
+        }
+
+        function loadAmenities(amenities) {
+            const container = document.getElementById('property-amenities');
+            container.innerHTML = '';
+            
+            amenities.forEach(amenity => {
+                const col = document.createElement('div');
+                col.className = 'col-md-4 col-6 mb-2';
+                col.innerHTML = `<i class="fas fa-check text-success me-2"></i>${amenity}`;
+                container.appendChild(col);
+            });
+        }
+
+        function loadFeatures(features) {
+            const container = document.getElementById('property-features');
+            container.innerHTML = '';
+            
+            features.forEach(feature => {
+                const col = document.createElement('div');
+                col.className = 'col-md-4 col-6 mb-2';
+                col.innerHTML = `<i class="fas fa-star text-warning me-2"></i>${feature}`;
+                container.appendChild(col);
+            });
+        }
+
+        function loadSimilarProperties(currentPropertyId) {
+            const container = document.getElementById('similar-properties');
+            container.innerHTML = '';
+            
+            Object.keys(properties).forEach(key => {
+                if (key !== currentPropertyId) {
+                    const property = properties[key];
+                    const col = document.createElement('div');
+                    col.className = 'col-lg-3 col-md-6 mb-4';
+                    col.innerHTML = `
+                        <div class="card similar-property h-100 shadow-sm">
+                            <img src="${property.images[0]}" alt="${property.title}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h6 class="card-title">${property.title}</h6>
+                                <p class="card-text text-muted small">
+                                    <i class="fas fa-map-marker-alt me-1"></i>${property.location}
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="price">
+                                        <strong class="text-primary">${property.price}</strong>
+                                    </div>
+                                    <a href="property-details.html?id=${key}" class="btn btn-sm btn-outline-primary">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(col);
+                }
+            });
+        }
+
+        function toggleFavorite() {
+            const button = document.getElementById('favorite-text');
+            const icon = document.querySelector('#favorite-text').parentElement.querySelector('i');
+            
+            if (button.textContent === 'Add to Favorites') {
+                button.textContent = 'Remove from Favorites';
+                icon.className = 'fas fa-heart me-1';
+                button.parentElement.classList.add('btn-danger');
+                button.parentElement.classList.remove('btn-outline-primary');
+            } else {
+                button.textContent = 'Add to Favorites';
+                icon.className = 'far fa-heart me-1';
+                button.parentElement.classList.remove('btn-danger');
+                button.parentElement.classList.add('btn-outline-primary');
+            }
+        }
+
+        function sendInquiry(event) {
+            event.preventDefault();
+            alert('Thank you for your inquiry! We will get back to you within 24 hours.');
+            const modal = bootstrap.Modal.getInstance(document.getElementById('inquiryModal'));
+            modal.hide();
+        }
+
+        function scheduleAppointment(event) {
+            event.preventDefault();
+            alert('Appointment scheduled successfully! We will contact you to confirm the details.');
+            const modal = bootstrap.Modal.getInstance(document.getElementById('appointmentModal'));
+            modal.hide();
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPropertyDetails();
+            
+            // Thumbnail click handler
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('thumbnail-img')) {
+                    const slideIndex = parseInt(e.target.getAttribute('data-bs-slide-to'));
+                    const carousel = new bootstrap.Carousel(document.getElementById('propertyCarousel'));
+                    carousel.to(slideIndex);
+                    
+                    // Update active thumbnail
+                    document.querySelectorAll('.thumbnail-img').forEach(img => img.classList.remove('active'));
+                    e.target.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

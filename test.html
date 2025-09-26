@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Homes - Premium Kenyan Real Estate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 60vh;
+        }
+        .property-card {
+            transition: transform 0.3s ease;
+            border: none;
+        }
+        .property-card:hover {
+            transform: translateY(-5px);
+        }
+        .property-image {
+            height: 250px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="#home">
+                <i class="fas fa-home me-2"></i>Cool Homes
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="#home">Home</a>
+                <a class="nav-link" href="properties.html">Properties</a>
+                <a class="nav-link" href="#blog">Blog</a>
+                <a class="nav-link" href="#contact">Contact</a>
+                <a class="nav-link" href="login.html">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section text-white py-5">
+        <div class="container">
+            <div class="row align-items-center min-vh-50">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">Find Your Dream Home in Kenya</h1>
+                    <p class="lead mb-4">Discover premium properties across Kenya's most desirable locations. From Nairobi's bustling city center to the serene coast of Mombasa, we have the perfect home for you.</p>
+                    <div class="d-flex gap-3">
+                        <a href="properties.html" class="btn btn-light btn-lg">Browse Properties</a>
+                        <a href="#contact" class="btn btn-outline-light btn-lg">Contact Us</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-image">
+                        <img src="26-Mzizi-Court.webp" alt="Beautiful Home" class="img-fluid rounded shadow" style="max-height: 400px; width: 100%; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="card shadow p-4">
+                        <h3 class="text-center mb-4">Search Properties in Kenya</h3>
+                        <form class="row g-3" onsubmit="searchProperties(event)">
+                            <div class="col-md-4">
+                                <label class="form-label">Location</label>
+                                <input type="text" class="form-control" placeholder="Nairobi, Mombasa, Kisumu..." id="location">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Property Type</label>
+                                <select class="form-select" id="type">
+                                    <option value="">All Types</option>
+                                    <option value="house">House</option>
+                                    <option value="apartment">Apartment</option>
+                                    <option value="villa">Villa</option>
+                                    <option value="townhouse">Townhouse</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" id="status">
+                                    <option value="">All Status</option>
+                                    <option value="sale">For Sale</option>
+                                    <option value="rent">For Rent</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">&nbsp;</label>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Properties -->
+    <section id="properties" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Featured Properties in Kenya</h2>
+            <div class="row" id="properties-container">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card property-card h-100 shadow-sm">
+                        <img src="26-Mzizi-Court.webp" alt="Luxury Apartment in Westlands" class="card-img-top property-image">
+                        <div class="card-body">
+                            <h5 class="card-title">Luxury Apartment in Westlands</h5>
+                            <p class="card-text text-muted">
+                                <i class="fas fa-map-marker-alt me-1"></i>Westlands, Nairobi
+                            </p>
+                            <div class="mb-3">
+                                <span class="me-3"><i class="fas fa-bed me-1"></i>3 Beds</span>
+                                <span class="me-3"><i class="fas fa-bath me-1"></i>2 Baths</span>
+                                <span><i class="fas fa-ruler-combined me-1"></i>1200 sq ft</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="price">
+                                    <h4 class="text-primary mb-0">KSh 25,000,000</h4>
+                                </div>
+                                <a href="property-details.html?id=property1" class="btn btn-outline-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card property-card h-100 shadow-sm">
+                        <img src="Loft-Residences.webp" alt="Modern Villa in Karen" class="card-img-top property-image">
+                        <div class="card-body">
+                            <h5 class="card-title">Modern Villa in Karen</h5>
+                            <p class="card-text text-muted">
+                                <i class="fas fa-map-marker-alt me-1"></i>Karen, Nairobi
+                            </p>
+                            <div class="mb-3">
+                                <span class="me-3"><i class="fas fa-bed me-1"></i>4 Beds</span>
+                                <span class="me-3"><i class="fas fa-bath me-1"></i>3 Baths</span>
+                                <span><i class="fas fa-ruler-combined me-1"></i>2500 sq ft</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="price">
+                                    <h4 class="text-primary mb-0">KSh 45,000,000</h4>
+                                </div>
+                                <a href="property-details.html?id=property2" class="btn btn-outline-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card property-card h-100 shadow-sm">
+                        <img src="Riverbank.webp" alt="Beachfront Apartment in Mombasa" class="card-img-top property-image">
+                        <div class="card-body">
+                            <h5 class="card-title">Beachfront Apartment in Mombasa</h5>
+                            <p class="card-text text-muted">
+                                <i class="fas fa-map-marker-alt me-1"></i>Nyali, Mombasa
+                            </p>
+                            <div class="mb-3">
+                                <span class="me-3"><i class="fas fa-bed me-1"></i>2 Beds</span>
+                                <span class="me-3"><i class="fas fa-bath me-1"></i>2 Baths</span>
+                                <span><i class="fas fa-ruler-combined me-1"></i>1000 sq ft</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="price">
+                                    <h4 class="text-primary mb-0">KSh 8,500,000</h4>
+                                </div>
+                                <a href="property-details.html?id=property3" class="btn btn-outline-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card property-card h-100 shadow-sm">
+                        <img src="The-One-at-Two-Rivers.webp" alt="Townhouse in Runda" class="card-img-top property-image">
+                        <div class="card-body">
+                            <h5 class="card-title">Elegant Townhouse in Runda</h5>
+                            <p class="card-text text-muted">
+                                <i class="fas fa-map-marker-alt me-1"></i>Runda, Nairobi
+                            </p>
+                            <div class="mb-3">
+                                <span class="me-3"><i class="fas fa-bed me-1"></i>3 Beds</span>
+                                <span class="me-3"><i class="fas fa-bath me-1"></i>2 Baths</span>
+                                <span><i class="fas fa-ruler-combined me-1"></i>1800 sq ft</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="price">
+                                    <h4 class="text-primary mb-0">KSh 18,000,000</h4>
+                                </div>
+                                <a href="property-details.html?id=property4" class="btn btn-outline-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button onclick="loadMoreProperties()" class="btn btn-primary btn-lg">Load More Properties</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Real Estate News & Tips</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card blog-card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Kenya's Real Estate Market Trends 2024</h5>
+                            <p class="card-text text-muted">Discover the latest trends in Kenya's booming real estate market, from Nairobi's skyline to Mombasa's coastal properties.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar me-1"></i>Dec 15, 2024
+                                </small>
+                                <a href="blog-details.html?id=blog1" class="btn btn-sm btn-outline-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card blog-card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">First-Time Home Buyer Guide in Kenya</h5>
+                            <p class="card-text text-muted">Everything you need to know about buying your first home in Kenya, from financing options to legal requirements.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar me-1"></i>Dec 10, 2024
+                                </small>
+                                <a href="blog-details.html?id=blog2" class="btn btn-sm btn-outline-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card blog-card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Investment Opportunities in Kisumu</h5>
+                            <p class="card-text text-muted">Explore the growing investment potential in Kisumu's real estate market and emerging opportunities.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar me-1"></i>Dec 5, 2024
+                                </small>
+                                <a href="blog-details.html?id=blog3" class="btn btn-sm btn-outline-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mortgage Calculator -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0"><i class="fas fa-calculator me-2"></i>Mortgage Calculator</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <form class="row g-3" onsubmit="calculateMortgage(event)">
+                                <div class="col-md-6">
+                                    <label class="form-label">Loan Amount (KSh)</label>
+                                    <input type="number" class="form-control" placeholder="Enter loan amount" id="loanAmount">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Interest Rate (%)</label>
+                                    <input type="number" step="0.01" class="form-control" placeholder="Enter interest rate" id="interestRate">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Loan Term (Years)</label>
+                                    <select class="form-select" id="loanTerm">
+                                        <option value="15">15 Years</option>
+                                        <option value="20">20 Years</option>
+                                        <option value="25">25 Years</option>
+                                        <option value="30">30 Years</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">&nbsp;</label>
+                                    <button type="submit" class="btn btn-primary w-100">Calculate Payment</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow border-success">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Calculation Results</h5>
+                        </div>
+                        <div class="card-body" id="mortgageResults">
+                            <div class="text-center text-muted">
+                                <i class="fas fa-calculator fa-2x mb-3"></i>
+                                <p>Enter loan details to see your monthly payment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Contact Cool Homes</h2>
+            <div class="row">
+                <div class="col-lg-8 mb-4">
+                    <div class="card shadow">
+                        <div class="card-body p-4">
+                            <h4 class="mb-4">Send us a Message</h4>
+                            <form onsubmit="sendMessage(event)">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Phone</label>
+                                        <input type="tel" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Subject</label>
+                                        <select class="form-select">
+                                            <option>General Inquiry</option>
+                                            <option>Property Viewing</option>
+                                            <option>Investment Advice</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Message</label>
+                                        <textarea class="form-control" rows="4" required></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary btn-lg">
+                                            <i class="fas fa-paper-plane me-2"></i>Send Message
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Contact Information</h5>
+                            <div class="contact-info">
+                                <p class="mb-3">
+                                    <i class="fas fa-map-marker-alt me-2 text-primary"></i>
+                                    <strong>Nairobi Office:</strong><br>
+                                    Westlands Business Center<br>
+                                    Nairobi, Kenya
+                                </p>
+                                <p class="mb-3">
+                                    <i class="fas fa-phone me-2 text-primary"></i>
+                                    <strong>Phone:</strong><br>
+                                    +254 700 123 456<br>
+                                    +254 20 123 4567
+                                </p>
+                                <p class="mb-3">
+                                    <i class="fas fa-envelope me-2 text-primary"></i>
+                                    <strong>Email:</strong><br>
+                                    info@coolhomes.co.ke<br>
+                                    sales@coolhomes.co.ke
+                                </p>
+                                <p class="mb-3">
+                                    <i class="fas fa-clock me-2 text-primary"></i>
+                                    <strong>Office Hours:</strong><br>
+                                    Monday - Friday: 8:00 AM - 6:00 PM<br>
+                                    Saturday: 9:00 AM - 4:00 PM<br>
+                                    Sunday: Closed
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5 class="text-primary mb-3">
+                        <i class="fas fa-home me-2"></i>Cool Homes
+                    </h5>
+                    <p class="text-muted">Your trusted partner in finding the perfect home in Kenya. We specialize in premium properties across Nairobi, Mombasa, Kisumu, and other major cities.</p>
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="text-primary mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#home" class="text-muted text-decoration-none">Home</a></li>
+                        <li><a href="#properties" class="text-muted text-decoration-none">Properties</a></li>
+                        <li><a href="#blog" class="text-muted text-decoration-none">Blog</a></li>
+                        <li><a href="#contact" class="text-muted text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="text-primary mb-3">Services</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted text-decoration-none">Buy Properties</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">Sell Properties</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">Rent Properties</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">Property Management</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h6 class="text-primary mb-3">Contact Info</h6>
+                    <div class="contact-info">
+                        <p class="text-muted mb-2">
+                            <i class="fas fa-map-marker-alt me-2"></i>Westlands Business Center, Nairobi
+                        </p>
+                        <p class="text-muted mb-2">
+                            <i class="fas fa-phone me-2"></i>+254 700 123 456
+                        </p>
+                        <p class="text-muted mb-2">
+                            <i class="fas fa-envelope me-2"></i>info@coolhomes.co.ke
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="text-muted mb-0">&copy; 2024 Cool Homes. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-muted text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-muted text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Property search functionality
+        function searchProperties(event) {
+            event.preventDefault();
+            const location = document.getElementById('location').value.toLowerCase();
+            const type = document.getElementById('type').value;
+            const status = document.getElementById('status').value;
+            
+            const propertyCards = document.querySelectorAll('.property-card');
+            let visibleCount = 0;
+            
+            propertyCards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const locationText = card.querySelector('.card-text').textContent.toLowerCase();
+                const priceText = card.querySelector('.text-primary').textContent;
+                
+                let showCard = true;
+                
+                // Filter by location
+                if (location && !locationText.includes(location) && !title.includes(location)) {
+                    showCard = false;
+                }
+                
+                // Filter by type (you can add data attributes to cards for better filtering)
+                if (type && !title.toLowerCase().includes(type)) {
+                    showCard = false;
+                }
+                
+                // Filter by status (sale/rent)
+                if (status === 'sale' && priceText.includes('/month')) {
+                    showCard = false;
+                } else if (status === 'rent' && !priceText.includes('/month')) {
+                    showCard = false;
+                }
+                
+                if (showCard) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Show search results message
+            const resultsMessage = document.getElementById('search-results') || createSearchResultsMessage();
+            resultsMessage.textContent = `Found ${visibleCount} properties matching your search criteria.`;
+            resultsMessage.style.display = 'block';
+            
+            // Scroll to properties section
+            document.getElementById('properties').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function createSearchResultsMessage() {
+            const message = document.createElement('div');
+            message.id = 'search-results';
+            message.className = 'alert alert-info text-center mt-3';
+            message.style.display = 'none';
+            document.getElementById('properties').insertBefore(message, document.getElementById('properties-container'));
+            return message;
+        }
+
+        // Load more properties
+        function loadMoreProperties() {
+            // Add more properties dynamically
+            const propertiesContainer = document.getElementById('properties-container');
+            const additionalProperties = [
+                {
+                    title: 'Luxury Penthouse in Kilimani',
+                    location: 'Kilimani, Nairobi',
+                    price: 'KSh 35,000,000',
+                    beds: 4,
+                    baths: 3,
+                    area: '2000',
+                    image: '26-Mzizi-Court.webp',
+                    id: 'property5'
+                },
+                {
+                    title: 'Modern Apartment in Thika',
+                    location: 'Thika, Kiambu',
+                    price: 'KSh 12,000,000',
+                    beds: 3,
+                    baths: 2,
+                    area: '1500',
+                    image: 'Loft-Residences.webp',
+                    id: 'property6'
+                }
+            ];
+            
+            additionalProperties.forEach(property => {
+                const col = document.createElement('div');
+                col.className = 'col-lg-4 col-md-6 mb-4';
+                col.innerHTML = `
+                    <div class="card property-card h-100 shadow-sm">
+                        <img src="${property.image}" alt="${property.title}" class="card-img-top property-image">
+                        <div class="card-body">
+                            <h5 class="card-title">${property.title}</h5>
+                            <p class="card-text text-muted">
+                                <i class="fas fa-map-marker-alt me-1"></i>${property.location}
+                            </p>
+                            <div class="mb-3">
+                                <span class="me-3"><i class="fas fa-bed me-1"></i>${property.beds} Beds</span>
+                                <span class="me-3"><i class="fas fa-bath me-1"></i>${property.baths} Baths</span>
+                                <span><i class="fas fa-ruler-combined me-1"></i>${property.area} sq ft</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="price">
+                                    <h4 class="text-primary mb-0">${property.price}</h4>
+                                </div>
+                                <a href="property-details.html?id=${property.id}" class="btn btn-outline-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                propertiesContainer.appendChild(col);
+            });
+            
+            alert('More properties loaded! Scroll down to see them.');
+        }
+
+        // Mortgage calculator
+        function calculateMortgage(event) {
+            event.preventDefault();
+            const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+            const interestRate = parseFloat(document.getElementById('interestRate').value);
+            const loanTerm = parseInt(document.getElementById('loanTerm').value);
+
+            if (loanAmount && interestRate && loanTerm) {
+                const monthlyRate = interestRate / 100 / 12;
+                const totalMonths = loanTerm * 12;
+                
+                let monthlyPayment;
+                if (monthlyRate === 0) {
+                    monthlyPayment = loanAmount / totalMonths;
+                } else {
+                    monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+                }
+
+                const totalPayment = monthlyPayment * totalMonths;
+                const totalInterest = totalPayment - loanAmount;
+
+                document.getElementById('mortgageResults').innerHTML = `
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Monthly Payment:</span>
+                            <span class="h4 text-primary mb-0">KSh ${monthlyPayment.toLocaleString('en-KE', {maximumFractionDigits: 0})}</span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Total Payment:</span>
+                            <span class="h5 text-success mb-0">KSh ${totalPayment.toLocaleString('en-KE', {maximumFractionDigits: 0})}</span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Total Interest:</span>
+                            <span class="h5 text-warning mb-0">KSh ${totalInterest.toLocaleString('en-KE', {maximumFractionDigits: 0})}</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                alert('Please fill in all fields to calculate your mortgage payment.');
+            }
+        }
+
+        // Send contact message
+        function sendMessage(event) {
+            event.preventDefault();
+            alert('Thank you for your message! We will get back to you within 24 hours. Our team will contact you soon.');
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to property cards
+            const propertyCards = document.querySelectorAll('.property-card');
+            propertyCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                    this.style.transition = 'transform 0.3s ease';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Add click effects to buttons
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

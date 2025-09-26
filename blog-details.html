@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Article - Cool Homes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #f59e0b;
+            --accent-color: #10b981;
+            --dark-color: #1f2937;
+            --light-color: #f8fafc;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark-color);
+        }
+
+        /* Header Styles */
+        .main-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-top {
+            background: rgba(0,0,0,0.1);
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .header-top a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            margin-right: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .header-top a:hover {
+            color: white;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .blog-hero {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 3rem 0;
+        }
+        .blog-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        .blog-content h3 {
+            color: var(--primary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .blog-content p {
+            margin-bottom: 1.5rem;
+        }
+        .author-card {
+            border-left: 4px solid var(--primary-color);
+        }
+        .related-article {
+            transition: transform 0.3s ease;
+        }
+        .related-article:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <a href="tel:+254700123456"><i class="fas fa-phone me-1"></i>+254 700 123 456</a>
+                        <a href="mailto:info@coolhomes.co.ke"><i class="fas fa-envelope me-1"></i>info@coolhomes.co.ke</a>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <span class="text-light">Follow us for latest updates</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <i class="fas fa-home me-2"></i>Cool Homes
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="properties.html">Properties</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#blog">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4 fw-bold mb-3" id="blog-title">Blog Article Title</h1>
+                    <p class="lead mb-4" id="blog-excerpt">Article excerpt will be loaded here</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="me-4">
+                            <i class="fas fa-user me-2"></i>
+                            <span id="blog-author">Author Name</span>
+                        </div>
+                        <div class="me-4">
+                            <i class="fas fa-calendar me-2"></i>
+                            <span id="blog-date">Dec 15, 2024</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-clock me-2"></i>
+                            <span id="blog-read-time">5 min read</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container py-5">
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <article class="blog-content" id="blog-content">
+                    <!-- Blog content will be loaded dynamically -->
+                </article>
+
+                <!-- Author Info -->
+                <div class="card author-card mt-5">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-2">
+                                <div class="author-avatar text-center">
+                                    <i class="fas fa-user-circle fa-4x text-primary"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <h5 class="card-title mb-1" id="author-name">Author Name</h5>
+                                <p class="text-muted mb-2" id="author-title">Real Estate Expert</p>
+                                <p class="card-text" id="author-bio">Experienced real estate professional with over 10 years in the Kenyan market.</p>
+                                <div class="social-links">
+                                    <a href="#" class="text-primary me-3"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#" class="text-primary me-3"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" class="text-primary"><i class="fas fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comments Section -->
+                <div class="mt-5">
+                    <h4 class="mb-4">Comments (3)</h4>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div class="me-3">
+                                    <i class="fas fa-user-circle fa-2x text-primary"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">John Mwangi</h6>
+                                    <small class="text-muted">2 hours ago</small>
+                                    <p class="mt-2 mb-0">Great article! This really helped me understand the current market trends in Kenya.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div class="me-3">
+                                    <i class="fas fa-user-circle fa-2x text-primary"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Sarah Kimani</h6>
+                                    <small class="text-muted">5 hours ago</small>
+                                    <p class="mt-2 mb-0">Very informative! I'm planning to buy my first home and this guide is exactly what I needed.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div class="me-3">
+                                    <i class="fas fa-user-circle fa-2x text-primary"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">David Ochieng</h6>
+                                    <small class="text-muted">1 day ago</small>
+                                    <p class="mt-2 mb-0">Excellent insights on the Kisumu market. I'm considering investing there.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Related Articles -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Related Articles</h5>
+                    </div>
+                    <div class="card-body" id="related-articles">
+                        <!-- Related articles will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Newsletter Signup -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Stay Updated</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted">Get the latest real estate news and market updates delivered to your inbox.</p>
+                        <form onsubmit="subscribeNewsletter(event)">
+                            <div class="mb-3">
+                                <input type="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Popular Properties -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Popular Properties</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex mb-3">
+                            <img src="26-Mzizi-Court.webp" alt="Property" class="img-fluid me-3" style="width: 80px; height: 60px; object-fit: cover;">
+                            <div>
+                                <h6 class="mb-1">Luxury Apartment in Westlands</h6>
+                                <p class="text-muted mb-1">KSh 25,000,000</p>
+                                <a href="property-details.html?id=property1" class="btn btn-sm btn-outline-primary">View</a>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <img src="Loft-Residences.webp" alt="Property" class="img-fluid me-3" style="width: 80px; height: 60px; object-fit: cover;">
+                            <div>
+                                <h6 class="mb-1">Modern Villa in Karen</h6>
+                                <p class="text-muted mb-1">KSh 45,000,000</p>
+                                <a href="property-details.html?id=property2" class="btn btn-sm btn-outline-primary">View</a>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <img src="Riverbank.webp" alt="Property" class="img-fluid me-3" style="width: 80px; height: 60px; object-fit: cover;">
+                            <div>
+                                <h6 class="mb-1">Beachfront Apartment</h6>
+                                <p class="text-muted mb-1">KSh 8,500,000</p>
+                                <a href="property-details.html?id=property3" class="btn btn-sm btn-outline-primary">View</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const blogArticles = {
+            'blog1': {
+                title: 'Kenya\'s Real Estate Market Trends 2024',
+                excerpt: 'Discover the latest trends in Kenya\'s booming real estate market, from Nairobi\'s skyline to Mombasa\'s coastal properties.',
+                author: 'Sarah Johnson',
+                date: 'Dec 15, 2024',
+                readTime: '8 min read',
+                content: `
+                    <p>The Kenyan real estate market continues to show strong growth with Nairobi leading in luxury developments. Key trends include sustainable building practices, smart home technology, and growing demand for mixed-use developments.</p>
+                    
+                    <h3>Nairobi's Skyline Transformation</h3>
+                    <p>Nairobi's skyline is undergoing a remarkable transformation with new high-rise developments changing the city's landscape. The Westlands and Upper Hill areas are particularly active, with several luxury apartment complexes and commercial buildings under construction.</p>
+                    
+                    <p>These developments are not just about height; they're about creating sustainable, smart buildings that meet the needs of modern Kenyans. Features like solar panels, rainwater harvesting, and energy-efficient systems are becoming standard in new developments.</p>
+                    
+                    <h3>Coastal Properties on the Rise</h3>
+                    <p>Mombasa's real estate market is experiencing unprecedented growth, driven by both local and international demand. The coastal city's property values have increased significantly, with beachfront properties commanding premium prices.</p>
+                    
+                    <p>Areas like Nyali, Diani, and Kilifi are particularly popular, offering a perfect blend of beach life and modern amenities. Developers are focusing on creating resort-style living with world-class facilities.</p>
+                    
+                    <h3>Smart Home Technology Integration</h3>
+                    <p>Modern Kenyan homes are increasingly incorporating smart technology. From automated lighting and security systems to smart appliances and energy management, technology is transforming how we live.</p>
+                    
+                    <p>This trend is particularly strong in Nairobi's upmarket areas, where buyers expect the latest in home automation and connectivity.</p>
+                    
+                    <h3>Investment Opportunities</h3>
+                    <p>For investors, Kenya's real estate market offers diverse opportunities. From residential properties in growing suburbs to commercial developments in business districts, there's something for every investment strategy.</p>
+                    
+                    <p>The government's focus on infrastructure development, including the Standard Gauge Railway and road networks, is opening up new areas for development and investment.</p>
+                `,
+                authorTitle: 'Senior Real Estate Analyst',
+                authorBio: 'Sarah has over 10 years of experience in Kenya\'s real estate market, specializing in market analysis and investment strategies.'
+            },
+            'blog2': {
+                title: 'First-Time Home Buyer Guide in Kenya',
+                excerpt: 'Everything you need to know about buying your first home in Kenya, from financing options to legal requirements.',
+                author: 'John Smith',
+                date: 'Dec 10, 2024',
+                readTime: '6 min read',
+                content: `
+                    <p>Buying your first home in Kenya is an exciting milestone, but it can also be overwhelming. This comprehensive guide will walk you through every step of the process, from initial planning to closing the deal.</p>
+                    
+                    <h3>Understanding Your Budget</h3>
+                    <p>Before you start looking at properties, it's crucial to understand how much you can afford. Consider your income, existing debts, and monthly expenses. Most financial experts recommend that your housing costs should not exceed 30% of your gross monthly income.</p>
+                    
+                    <p>Don't forget to factor in additional costs like legal fees, stamp duty, and moving expenses. These can add up to 5-10% of the property value.</p>
+                    
+                    <h3>Financing Options in Kenya</h3>
+                    <p>Kenya offers several financing options for first-time home buyers:</p>
+                    <ul>
+                        <li><strong>Mortgage Loans:</strong> Available from various banks with competitive interest rates</li>
+                        <li><strong>Housing Finance:</strong> Specialized housing finance companies</li>
+                        <li><strong>Government Programs:</strong> Affordable housing initiatives</li>
+                        <li><strong>Employer Schemes:</strong> Some companies offer housing loans to employees</li>
+                    </ul>
+                    
+                    <h3>Legal Requirements</h3>
+                    <p>Understanding the legal process is crucial for a smooth transaction. Key requirements include:</p>
+                    <ul>
+                        <li>Valid title deed or lease agreement</li>
+                        <li>Land rates clearance certificate</li>
+                        <li>Rent clearance certificate (for leasehold properties)</li>
+                        <li>Survey and valuation reports</li>
+                        <li>Legal fees and stamp duty</li>
+                    </ul>
+                    
+                    <h3>Choosing the Right Location</h3>
+                    <p>Location is often more important than the house itself. Consider factors like:</p>
+                    <ul>
+                        <li>Proximity to your workplace</li>
+                        <li>Access to good schools</li>
+                        <li>Transportation links</li>
+                        <li>Future development plans</li>
+                        <li>Security and amenities</li>
+                    </ul>
+                    
+                    <h3>Working with Professionals</h3>
+                    <p>Don't go through this process alone. Consider working with:</p>
+                    <ul>
+                        <li><strong>Real Estate Agent:</strong> For property search and negotiation</li>
+                        <li><strong>Lawyer:</strong> For legal documentation and due diligence</li>
+                        <li><strong>Surveyor:</strong> For property inspection and valuation</li>
+                        <li><strong>Banker:</strong> For financing options and pre-approval</li>
+                    </ul>
+                `,
+                authorTitle: 'Real Estate Consultant',
+                authorBio: 'John specializes in helping first-time buyers navigate the Kenyan real estate market with over 8 years of experience.'
+            },
+            'blog3': {
+                title: 'Investment Opportunities in Kisumu',
+                excerpt: 'Explore the growing investment potential in Kisumu\'s real estate market and emerging opportunities.',
+                author: 'Mike Davis',
+                date: 'Dec 5, 2024',
+                readTime: '7 min read',
+                content: `
+                    <p>Kisumu is emerging as a key investment destination with growing infrastructure, business opportunities, and affordable property prices. The city offers excellent potential for both residential and commercial real estate investments.</p>
+                    
+                    <h3>Why Kisumu is Attractive for Investors</h3>
+                    <p>Kisumu's strategic location on Lake Victoria, combined with ongoing infrastructure developments, makes it an attractive destination for real estate investment. The city is experiencing rapid growth in both population and economic activity.</p>
+                    
+                    <p>Key factors driving investment interest include:</p>
+                    <ul>
+                        <li>Affordable property prices compared to Nairobi</li>
+                        <li>Growing business and industrial sector</li>
+                        <li>Improved infrastructure and connectivity</li>
+                        <li>Government focus on regional development</li>
+                        <li>Tourism potential around Lake Victoria</li>
+                    </ul>
+                    
+                    <h3>Residential Investment Opportunities</h3>
+                    <p>The residential market in Kisumu is showing strong growth, with increasing demand for both rental and owner-occupied properties. Areas like Milimani, Riat, and Dunga are particularly popular for residential development.</p>
+                    
+                    <p>Investment opportunities include:</p>
+                    <ul>
+                        <li>Apartment complexes for the growing middle class</li>
+                        <li>Student housing near universities</li>
+                        <li>Luxury homes for high-income earners</li>
+                        <li>Affordable housing for the general population</li>
+                    </ul>
+                    
+                    <h3>Commercial Real Estate Potential</h3>
+                    <p>Kisumu's commercial real estate sector is expanding rapidly, driven by the city's growing business environment. The CBD and surrounding areas offer excellent opportunities for commercial development.</p>
+                    
+                    <p>Key commercial opportunities include:</p>
+                    <ul>
+                        <li>Office buildings for growing businesses</li>
+                        <li>Retail spaces in shopping centers</li>
+                        <li>Warehouses and industrial properties</li>
+                        <li>Hospitality and tourism-related properties</li>
+                    </ul>
+                    
+                    <h3>Infrastructure Developments</h3>
+                    <p>Several infrastructure projects are enhancing Kisumu's investment appeal:</p>
+                    <ul>
+                        <li>Kisumu International Airport expansion</li>
+                        <li>Road network improvements</li>
+                        <li>Water and sanitation projects</li>
+                        <li>Digital infrastructure development</li>
+                    </ul>
+                    
+                    <h3>Investment Tips for Kisumu</h3>
+                    <p>If you're considering investing in Kisumu's real estate market:</p>
+                    <ul>
+                        <li>Research the local market thoroughly</li>
+                        <li>Work with local real estate professionals</li>
+                        <li>Consider the long-term growth potential</li>
+                        <li>Factor in infrastructure developments</li>
+                        <li>Understand local regulations and requirements</li>
+                    </ul>
+                `,
+                authorTitle: 'Regional Investment Specialist',
+                authorBio: 'Mike focuses on emerging markets in Kenya, with particular expertise in Western Kenya and the Lake Victoria region.'
+            }
+        };
+
+        function loadBlogArticle() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const blogId = urlParams.get('id') || 'blog1';
+            const article = blogArticles[blogId];
+            
+            if (article) {
+                document.title = article.title + ' - Cool Homes';
+                document.getElementById('blog-title').textContent = article.title;
+                document.getElementById('blog-excerpt').textContent = article.excerpt;
+                document.getElementById('blog-author').textContent = article.author;
+                document.getElementById('blog-date').textContent = article.date;
+                document.getElementById('blog-read-time').textContent = article.readTime;
+                document.getElementById('blog-content').innerHTML = article.content;
+                document.getElementById('author-name').textContent = article.author;
+                document.getElementById('author-title').textContent = article.authorTitle;
+                document.getElementById('author-bio').textContent = article.authorBio;
+                
+                loadRelatedArticles(blogId);
+            }
+        }
+
+        function loadRelatedArticles(currentBlogId) {
+            const container = document.getElementById('related-articles');
+            container.innerHTML = '';
+            
+            Object.keys(blogArticles).forEach(key => {
+                if (key !== currentBlogId) {
+                    const article = blogArticles[key];
+                    const div = document.createElement('div');
+                    div.className = 'mb-3';
+                    div.innerHTML = `
+                        <h6><a href="blog-details.html?id=${key}" class="text-decoration-none">${article.title}</a></h6>
+                        <p class="text-muted small">${article.excerpt}</p>
+                        <small class="text-muted">${article.date}</small>
+                    `;
+                    container.appendChild(div);
+                }
+            });
+        }
+
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            alert('Thank you for subscribing to our newsletter! You will receive the latest real estate updates.');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBlogArticle();
+        });
+    </script>
+</body>
+</html>

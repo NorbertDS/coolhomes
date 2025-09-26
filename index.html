@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Homes - Premium Kenyan Real Estate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #f59e0b;
+            --accent-color: #10b981;
+            --dark-color: #1f2937;
+            --light-color: #f8fafc;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark-color);
+        }
+
+        /* Header Styles */
+        .main-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-top {
+            background: rgba(0,0,0,0.1);
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .header-top a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            margin-right: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .header-top a:hover {
+            color: white;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Hero Slider */
+        .hero-slider {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.3) 0%, rgba(139, 92, 246, 0.3) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .hero-buttons .btn {
+            margin: 0.5rem;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--secondary-color);
+            border: none;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6);
+        }
+
+        .btn-outline-light {
+            border: 2px solid white;
+            background: transparent;
+        }
+
+        .btn-outline-light:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Slider Controls */
+        .slider-controls {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+        }
+
+        .slider-dots {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: var(--secondary-color);
+            transform: scale(1.2);
+        }
+
+        /* Search Section */
+        .search-section {
+            background: white;
+            padding: 2rem 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+            margin-top: -2rem;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .search-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 2rem;
+            border: none;
+        }
+
+        .search-title {
+            color: var(--dark-color);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-control, .form-select {
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+        }
+
+        /* Properties Section */
+        .properties-section {
+            background: var(--light-color);
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: none;
+            height: 100%;
+        }
+
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .property-image {
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .property-card:hover .property-image {
+            transform: scale(1.05);
+        }
+
+        .property-content {
+            padding: 1.5rem;
+        }
+
+        .property-title {
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .property-location {
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+
+        .property-features {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .property-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .btn-view {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-view:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+            color: white;
+        }
+
+        /* Blog Section */
+        .blog-section {
+            background: white;
+            padding: 3rem 0;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-title {
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+
+        .blog-meta {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-read {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-read:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Mortgage Calculator */
+        .calculator-section {
+            background: var(--light-color);
+            padding: 3rem 0;
+        }
+
+        .calculator-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .calculator-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .calculator-body {
+            padding: 2rem;
+        }
+
+        .results-card {
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--light-color);
+            padding: 3rem 0;
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 2rem;
+        }
+
+        .contact-info {
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item i {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            margin-right: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <a href="tel:+254700123456"><i class="fas fa-phone me-1"></i>+254 700 123 456</a>
+                        <a href="mailto:info@coolhomes.co.ke"><i class="fas fa-envelope me-1"></i>info@coolhomes.co.ke</a>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <span class="text-light">Follow us for latest updates</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="#home">
+                    <i class="fas fa-home me-2"></i>Cool Homes
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="properties.html">Properties</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#blog">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Slider -->
+    <section class="hero-slider" id="home">
+        <div class="hero-slide active" style="background-image: url('26-Mzizi-Court.webp');"></div>
+        <div class="hero-slide" style="background-image: url('Loft-Residences.webp');"></div>
+        <div class="hero-slide" style="background-image: url('Riverbank.webp');"></div>
+        <div class="hero-slide" style="background-image: url('The-One-at-Two-Rivers.webp');"></div>
+        
+        <div class="hero-content">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h1 class="hero-title fade-in-up">Find Your Dream Home in Kenya</h1>
+                        <p class="hero-subtitle fade-in-up">Discover premium properties across Kenya's most desirable locations. From Nairobi's bustling city center to the serene coast of Mombasa, we have the perfect home for you.</p>
+                        <div class="hero-buttons fade-in-up">
+                            <a href="properties.html" class="btn btn-primary btn-lg">Browse Properties</a>
+                            <a href="#contact" class="btn btn-outline-light btn-lg">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slider-controls">
+            <div class="slider-dots">
+                <div class="slider-dot active" onclick="currentSlide(1)"></div>
+                <div class="slider-dot" onclick="currentSlide(2)"></div>
+                <div class="slider-dot" onclick="currentSlide(3)"></div>
+                <div class="slider-dot" onclick="currentSlide(4)"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="search-card">
+                        <h3 class="search-title">Search Properties in Kenya</h3>
+                        <form class="row g-3" onsubmit="searchProperties(event)">
+                            <div class="col-md-4">
+                                <label class="form-label">Location</label>
+                                <input type="text" class="form-control" placeholder="Nairobi, Mombasa, Kisumu..." id="location">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Property Type</label>
+                                <select class="form-select" id="type">
+                                    <option value="">All Types</option>
+                                    <option value="house">House</option>
+                                    <option value="apartment">Apartment</option>
+                                    <option value="villa">Villa</option>
+                                    <option value="townhouse">Townhouse</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" id="status">
+                                    <option value="">All Status</option>
+                                    <option value="sale">For Sale</option>
+                                    <option value="rent">For Rent</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">&nbsp;</label>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Properties -->
+    <section class="properties-section" id="properties">
+        <div class="container">
+            <h2 class="section-title">Featured Properties</h2>
+            <p class="section-subtitle">Discover our handpicked selection of premium properties across Kenya</p>
+            <div class="row" id="properties-container">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card property-card h-100">
+                        <img src="26-Mzizi-Court.webp" alt="Luxury Apartment in Westlands" class="property-image">
+                        <div class="property-content">
+                            <h5 class="property-title">Luxury Apartment in Westlands</h5>
+                            <p class="property-location">
+                                <i class="fas fa-map-marker-alt me-1"></i>Westlands, Nairobi
+                            </p>
+                            <div class="property-features">
+                                <span class="feature-item">
+                                    <i class="fas fa-bed"></i>3 Beds
+                                </span>
+                                <span class="feature-item">
+                                    <i class="fas fa-bath"></i>2 Baths
+                                </span>
+                                <span class="feature-item">
+                                    <i class="fas fa-ruler-combined"></i>1200 sq ft
+                                </span>
+                            </div>
+                            <div class="property-price">KSh 25,000,000</div>
+                            <a href="property-details.html?id=property1" class="btn btn-view">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card property-card h-100">
+                        <img src="Loft-Residences.webp" alt="Modern Villa in Karen" class="property-image">
+                        <div class="property-content">
+                            <h5 class="property-title">Modern Villa in Karen</h5>
+                            <p class="property-location">
+                                <i class="fas fa-map-marker-alt me-1"></i>Karen, Nairobi
+                            </p>
+                            <div class="property-features">
+                                <span class="feature-item">
+                                    <i class="fas fa-bed"></i>4 Beds
+                                </span>
+                                <span class="feature-item">
+                                    <i class="fas fa-bath"></i>3 Baths
+                                </span>
+                                <span class="feature-item">
+                                    <i class="fas fa-ruler-combined"></i>2500 sq ft
+                                </span>
+                            </div>
+                            <div class="property-price">KSh 45,000,000</div>
+                            <a href="property-details.html?id=property2" class="btn btn-view">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card property-card h-100">
+                        <img src="Riverbank.webp" alt="Beachfront Apartment in Mombasa" class="property-image">
+                        <div class="property-content">
+                            <h5 class="property-title">Beachfront Apartment in Mombasa</h5>
+                            <p class="property-location">
+                                <i class="fas fa-map-marker-alt me-1"></i>Nyali, Mombasa
+                            </p>
+                            <div class="property-features">
+                                <span class="feature-item">
+                                    <i class="fas fa-bed"></i>2 Beds
+                                </span>
+                                <span class="feature-item">
+                                    <i class="fas fa-bath"></i>2 Baths
+                                </span>
+                                <span class="feature-item">
+                                    <i class="fas fa-ruler-combined"></i>1000 sq ft
+                                </span>
+                            </div>
+                            <div class="property-price">KSh 8,500,000</div>
+                            <a href="property-details.html?id=property3" class="btn btn-view">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="properties.html" class="btn btn-primary btn-lg">View All Properties</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog-section" id="blog">
+        <div class="container">
+            <h2 class="section-title">Real Estate News & Tips</h2>
+            <p class="section-subtitle">Stay updated with the latest trends and insights in Kenya's real estate market</p>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card blog-card h-100">
+                        <div class="blog-content">
+                            <h5 class="blog-title">Kenya's Real Estate Market Trends 2024</h5>
+                            <p class="text-muted">Discover the latest trends in Kenya's booming real estate market, from Nairobi's skyline to Mombasa's coastal properties.</p>
+                            <div class="blog-meta">
+                                <i class="fas fa-calendar me-1"></i>Dec 15, 2024
+                            </div>
+                            <a href="blog-details.html?id=blog1" class="btn btn-read">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card blog-card h-100">
+                        <div class="blog-content">
+                            <h5 class="blog-title">First-Time Home Buyer Guide in Kenya</h5>
+                            <p class="text-muted">Everything you need to know about buying your first home in Kenya, from financing options to legal requirements.</p>
+                            <div class="blog-meta">
+                                <i class="fas fa-calendar me-1"></i>Dec 10, 2024
+                            </div>
+                            <a href="blog-details.html?id=blog2" class="btn btn-read">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card blog-card h-100">
+                        <div class="blog-content">
+                            <h5 class="blog-title">Investment Opportunities in Kisumu</h5>
+                            <p class="text-muted">Explore the growing investment potential in Kisumu's real estate market and emerging opportunities.</p>
+                            <div class="blog-meta">
+                                <i class="fas fa-calendar me-1"></i>Dec 5, 2024
+                            </div>
+                            <a href="blog-details.html?id=blog3" class="btn btn-read">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mortgage Calculator -->
+    <section class="calculator-section" id="mortgage-calculator">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="calculator-card">
+                        <div class="calculator-header">
+                            <h4 class="mb-0"><i class="fas fa-calculator me-2"></i>Mortgage Calculator</h4>
+                        </div>
+                        <div class="calculator-body">
+                            <form class="row g-3" onsubmit="calculateMortgage(event)">
+                                <div class="col-md-6">
+                                    <label class="form-label">Loan Amount (KSh)</label>
+                                    <input type="number" class="form-control" placeholder="Enter loan amount" id="loanAmount">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Interest Rate (%)</label>
+                                    <input type="number" step="0.01" class="form-control" placeholder="Enter interest rate" id="interestRate">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Loan Term (Years)</label>
+                                    <select class="form-select" id="loanTerm">
+                                        <option value="15">15 Years</option>
+                                        <option value="20">20 Years</option>
+                                        <option value="25">25 Years</option>
+                                        <option value="30">30 Years</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">&nbsp;</label>
+                                    <button type="submit" class="btn btn-primary w-100">Calculate Payment</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="results-card">
+                        <h5 class="mb-3"><i class="fas fa-chart-pie me-2"></i>Calculation Results</h5>
+                        <div id="mortgageResults">
+                            <div class="text-center">
+                                <i class="fas fa-calculator fa-2x mb-3"></i>
+                                <p>Enter loan details to see your monthly payment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Cool Homes</h2>
+            <p class="section-subtitle">Get in touch with our expert team for personalized real estate assistance</p>
+            <div class="row">
+                <div class="col-lg-8 mb-4">
+                    <div class="contact-card">
+                        <h4 class="mb-4">Send us a Message</h4>
+                        <form onsubmit="sendMessage(event)">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Phone</label>
+                                    <input type="tel" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Subject</label>
+                                    <select class="form-select">
+                                        <option>General Inquiry</option>
+                                        <option>Property Viewing</option>
+                                        <option>Investment Advice</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Message</label>
+                                    <textarea class="form-control" rows="4" required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-paper-plane me-2"></i>Send Message
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contact-info">
+                        <h5 class="mb-3">Contact Information</h5>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Nairobi Office</strong><br>
+                                Westlands Business Center<br>
+                                Nairobi, Kenya
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Phone</strong><br>
+                                +254 700 123 456<br>
+                                +254 20 123 4567
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email</strong><br>
+                                info@coolhomes.co.ke<br>
+                                sales@coolhomes.co.ke
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <strong>Office Hours</strong><br>
+                                Monday - Friday: 8:00 AM - 6:00 PM<br>
+                                Saturday: 9:00 AM - 4:00 PM<br>
+                                Sunday: Closed
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5 class="footer-brand">
+                        <i class="fas fa-home me-2"></i>Cool Homes
+                    </h5>
+                    <p class="text-light mb-4">Your trusted partner in finding the perfect home in Kenya. We specialize in premium properties across Nairobi, Mombasa, Kisumu, and other major cities.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="text-light mb-3">Quick Links</h6>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="properties.html">Properties</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="text-light mb-3">Services</h6>
+                    <ul class="footer-links">
+                        <li><a href="#">Buy Properties</a></li>
+                        <li><a href="#">Sell Properties</a></li>
+                        <li><a href="#">Rent Properties</a></li>
+                        <li><a href="#">Property Management</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h6 class="text-light mb-3">Contact Info</h6>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <span class="text-light">Westlands Business Center, Nairobi</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <span class="text-light">+254 700 123 456</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <span class="text-light">info@coolhomes.co.ke</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="mb-0">&copy; 2024 Cool Homes. All rights reserved. | <a href="#" class="text-light">Privacy Policy</a> | <a href="#" class="text-light">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Hero Slider
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.slider-dot');
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+            showSlide(currentSlideIndex);
+        }
+
+        function currentSlide(index) {
+            currentSlideIndex = index - 1;
+            showSlide(currentSlideIndex);
+        }
+
+        // Auto-slide every 5 seconds
+        setInterval(nextSlide, 5000);
+
+        // Property search functionality
+        function searchProperties(event) {
+            event.preventDefault();
+            const location = document.getElementById('location').value.toLowerCase();
+            const type = document.getElementById('type').value;
+            const status = document.getElementById('status').value;
+            
+            alert(`Searching for ${type || 'all'} properties in ${location || 'all locations'} that are ${status || 'available'}. This would filter the properties below!`);
+            
+            // Scroll to properties section
+            document.getElementById('properties').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Mortgage calculator
+        function calculateMortgage(event) {
+            event.preventDefault();
+            const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+            const interestRate = parseFloat(document.getElementById('interestRate').value);
+            const loanTerm = parseInt(document.getElementById('loanTerm').value);
+
+            if (loanAmount && interestRate && loanTerm) {
+                const monthlyRate = interestRate / 100 / 12;
+                const totalMonths = loanTerm * 12;
+                
+                let monthlyPayment;
+                if (monthlyRate === 0) {
+                    monthlyPayment = loanAmount / totalMonths;
+                } else {
+                    monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+                }
+
+                const totalPayment = monthlyPayment * totalMonths;
+                const totalInterest = totalPayment - loanAmount;
+
+                document.getElementById('mortgageResults').innerHTML = `
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span>Monthly Payment:</span>
+                            <strong>KSh ${monthlyPayment.toLocaleString('en-KE', {maximumFractionDigits: 0})}</strong>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span>Total Payment:</span>
+                            <strong>KSh ${totalPayment.toLocaleString('en-KE', {maximumFractionDigits: 0})}</strong>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span>Total Interest:</span>
+                            <strong>KSh ${totalInterest.toLocaleString('en-KE', {maximumFractionDigits: 0})}</strong>
+                        </div>
+                    </div>
+                `;
+            } else {
+                alert('Please fill in all fields to calculate your mortgage payment.');
+            }
+        }
+
+        // Send contact message
+        function sendMessage(event) {
+            event.preventDefault();
+            alert('Thank you for your message! We will get back to you within 24 hours. Our team will contact you soon.');
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effects
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(37, 99, 235, 0.95)';
+                navbar.style.backdropFilter = 'blur(10px)';
+            } else {
+                navbar.style.background = 'transparent';
+                navbar.style.backdropFilter = 'none';
+            }
+        });
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add fade-in animation to elements
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in-up');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.property-card, .blog-card').forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>

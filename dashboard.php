@@ -980,30 +980,39 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Bedrooms</label>
-                                    <input type="number" class="form-control" required>
+                                    <input type="number" name="bedrooms" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Bathrooms</label>
-                                    <input type="number" class="form-control" required>
+                                    <input type="number" name="bathrooms" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Area (sq ft)</label>
+                                    <input type="number" name="area" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Property Type</label>
-                                    <select class="form-control" required>
-                                        <option>Apartment</option>
-                                        <option>House</option>
-                                        <option>Villa</option>
-                                        <option>Commercial</option>
+                                    <select name="type" class="form-control" required>
+                                        <option value="">Select Type</option>
+                                        <option value="apartment">Apartment</option>
+                                        <option value="house">House</option>
+                                        <option value="villa">Villa</option>
+                                        <option value="commercial">Commercial</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Description</label>
-                            <textarea class="form-control" rows="4"></textarea>
+                            <textarea name="description" class="form-control" rows="4" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Features</label>
+                            <textarea name="features" class="form-control" rows="3" placeholder="Swimming Pool, Garden, Security, etc."></textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Property Images</label>
-                            <input type="file" class="form-control" multiple accept="image/*" id="property-images" onchange="previewImages(this)">
+                            <input type="file" name="images[]" class="form-control" multiple accept="image/*" id="property-images" onchange="previewImages(this)">
                             <small class="form-text text-muted">Upload multiple images (JPG, PNG, WEBP)</small>
                             <div id="image-preview" class="mt-2" style="display: none;">
                                 <h6>Image Previews:</h6>
@@ -1012,9 +1021,8 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Property Status</label>
-                            <select class="form-control" required>
-                                <option value="active">Active</option>
-                                <option value="pending">Pending</option>
+                            <select name="status" class="form-control" required>
+                                <option value="available">Available</option>
                                 <option value="sold">Sold</option>
                                 <option value="rented">Rented</option>
                             </select>
@@ -1044,21 +1052,21 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" required>
+                                    <input type="text" name="name" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
-                                                    <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" required>
+                                    <label class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Phone</label>
-                                    <input type="tel" class="form-control" required>
+                                    <input type="tel" name="phone" class="form-control" required>
                                 </div>
                                                 </div>
                                                 <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Role</label>
-                                    <select class="form-control" required>
+                                    <select name="role" class="form-control" required>
                                         <option value="">Select Role</option>
                                         <option value="agent">Agent</option>
                                         <option value="buyer">Buyer</option>
@@ -1066,18 +1074,17 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Password</label>
-                                    <input type="password" class="form-control" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Confirm Password</label>
-                                    <input type="password" class="form-control" required>
+                                    <label class="form-label">Status</label>
+                                    <select name="status" class="form-control" required>
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Address</label>
-                            <textarea class="form-control" rows="3"></textarea>
+                            <label class="form-label">Bio</label>
+                            <textarea name="bio" class="form-control" rows="3" placeholder="Brief description about the user"></textarea>
                         </div>
                     </form>
                 </div>

@@ -6,12 +6,57 @@ if ($_POST && isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     
-    // Simple authentication (in production, use proper password hashing)
-    if ($email === 'admin@coolhomes.co.ke' && $password === 'admin123') {
-        $_SESSION['user_id'] = 1;
-        $_SESSION['user_name'] = 'Norbert';
-        $_SESSION['user_role'] = 'admin';
-        header('Location: dashboard.php');
+    // Demo credentials for different roles
+    $demoUsers = [
+        'admin@coolhomes.co.ke' => [
+            'password' => 'admin123',
+            'name' => 'Norbert',
+            'role' => 'admin',
+            'id' => 1
+        ],
+        'agent@coolhomes.co.ke' => [
+            'password' => 'agent123',
+            'name' => 'John Agent',
+            'role' => 'agent',
+            'id' => 2
+        ],
+        'buyer@coolhomes.co.ke' => [
+            'password' => 'buyer123',
+            'name' => 'Jane Buyer',
+            'role' => 'buyer',
+            'id' => 3
+        ],
+        'seller@coolhomes.co.ke' => [
+            'password' => 'seller123',
+            'name' => 'Mike Seller',
+            'role' => 'seller',
+            'id' => 4
+        ]
+    ];
+    
+    if (isset($demoUsers[$email]) && $demoUsers[$email]['password'] === $password) {
+        $user = $demoUsers[$email];
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_name'] = $user['name'];
+        $_SESSION['user_role'] = $user['role'];
+        
+        // Redirect based on role
+        switch ($user['role']) {
+            case 'admin':
+                header('Location: dashboard.php');
+                break;
+            case 'agent':
+                header('Location: agent-dashboard.php');
+                break;
+            case 'buyer':
+                header('Location: buyer-dashboard.php');
+                break;
+            case 'seller':
+                header('Location: buyer-dashboard.php'); // Sellers use buyer dashboard for now
+                break;
+            default:
+                header('Location: home');
+        }
         exit;
     } else {
         $loginError = 'Invalid email or password';
@@ -58,8 +103,20 @@ include 'includes/header.php';
                         
                         <div class="demo-credentials">
                             <h6 class="mb-2">Demo Credentials:</h6>
-                            <p class="mb-1"><strong>Email:</strong> admin@coolhomes.co.ke</p>
-                            <p class="mb-0"><strong>Password:</strong> admin123</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="mb-1"><strong>Admin:</strong><br>
+                                    admin@coolhomes.co.ke / admin123</p>
+                                    <p class="mb-1"><strong>Agent:</strong><br>
+                                    agent@coolhomes.co.ke / agent123</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-1"><strong>Buyer:</strong><br>
+                                    buyer@coolhomes.co.ke / buyer123</p>
+                                    <p class="mb-1"><strong>Seller:</strong><br>
+                                    seller@coolhomes.co.ke / seller123</p>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="text-center mt-3">

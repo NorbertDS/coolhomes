@@ -3,380 +3,891 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Cool Homes</title>
+    <title>Admin Dashboard - Cool Homes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        .dashboard-sidebar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --light-color: #f8fafc;
+            --dark-color: #1e293b;
         }
-        .dashboard-content {
-            background-color: #f8f9fa;
-            min-height: 100vh;
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .stat-card {
-            transition: transform 0.3s ease;
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+            color: var(--dark-color);
         }
-        .stat-card:hover {
-            transform: translateY(-2px);
-        }
-        .nav-link {
-            color: rgba(255,255,255,0.8);
-            transition: color 0.3s ease;
-        }
-        .nav-link:hover, .nav-link.active {
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 280px;
+            background: linear-gradient(135deg, var(--primary-color), #1d4ed8);
             color: white;
-            background-color: rgba(255,255,255,0.1);
+            padding: 0;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-header h3 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-header p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-menu {
+            padding: 1rem 0;
+        }
+
+        .menu-item {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.1);
+            border-left-color: white;
+            color: white;
+        }
+
+        .menu-item.active {
+            background: rgba(255,255,255,0.15);
+            border-left-color: white;
+        }
+
+        .menu-item i {
+            width: 20px;
+            margin-right: 0.75rem;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .dashboard-header {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-header h1 {
+            color: var(--dark-color);
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .stat-card.success {
+            border-left-color: var(--success-color);
+        }
+
+        .stat-card.warning {
+            border-left-color: var(--warning-color);
+        }
+
+        .stat-card.danger {
+            border-left-color: var(--danger-color);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin: 0;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            color: white;
+        }
+
+        .table-responsive {
+            border-radius: 0 0 10px 10px;
+            overflow: hidden;
+        }
+
+        .table {
+            margin: 0;
+        }
+
+        .table th {
+            background: var(--light-color);
+            border: none;
+            padding: 1rem;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .table td {
+            padding: 1rem;
+            border: none;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .badge {
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .badge-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+            border-radius: 4px;
+        }
+
+        .btn-outline-primary {
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            background: transparent;
+        }
+
+        .btn-outline-danger {
+            border: 1px solid var(--danger-color);
+            color: var(--danger-color);
+            background: transparent;
+        }
+
+        .btn-outline-success {
+            border: 1px solid var(--success-color);
+            color: var(--success-color);
+            background: transparent;
+        }
+
+        .modal-content {
+            border: none;
+            border-radius: 10px;
+        }
+
+        .modal-header {
+            background: var(--light-color);
+            border-bottom: 1px solid #e2e8f0;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .form-control {
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 0.75rem;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .chart-container {
+            height: 300px;
+            padding: 1rem;
+        }
+
+        .recent-activity {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .activity-item {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 500;
+            color: var(--dark-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-time {
+            color: var(--secondary-color);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+
+            .dashboard-header {
+                padding: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
-            <div class="col-lg-2 dashboard-sidebar p-0">
-                <div class="p-4">
-                    <h4 class="text-white mb-4">
-                        <i class="fas fa-home me-2"></i>Cool Homes
-                    </h4>
-                    <nav class="nav flex-column">
-                        <a class="nav-link active" href="#overview" onclick="showSection('overview')">
-                            <i class="fas fa-tachometer-alt me-2"></i>Overview
-                        </a>
-                        <a class="nav-link" href="#favorites" onclick="showSection('favorites')">
-                            <i class="fas fa-heart me-2"></i>My Favorites
-                        </a>
-                        <a class="nav-link" href="#inquiries" onclick="showSection('inquiries')">
-                            <i class="fas fa-envelope me-2"></i>My Inquiries
-                        </a>
-                        <a class="nav-link" href="#appointments" onclick="showSection('appointments')">
-                            <i class="fas fa-calendar me-2"></i>Appointments
-                        </a>
-                        <a class="nav-link" href="#profile" onclick="showSection('profile')">
-                            <i class="fas fa-user me-2"></i>Profile
-                        </a>
-                        <hr class="text-white">
-                        <a class="nav-link" href="test.html">
-                            <i class="fas fa-home me-2"></i>Back to Website
-                        </a>
-                        <a class="nav-link" href="login.html">
-                            <i class="fas fa-sign-out-alt me-2"></i>Logout
-                        </a>
-                    </nav>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-home"></i> Cool Homes</h3>
+            <p>Admin Dashboard</p>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="#dashboard" class="menu-item active" onclick="showSection('dashboard')">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="#properties" class="menu-item" onclick="showSection('properties')">
+                <i class="fas fa-building"></i> Properties
+            </a>
+            <a href="#users" class="menu-item" onclick="showSection('users')">
+                <i class="fas fa-users"></i> Users
+            </a>
+            <a href="#inquiries" class="menu-item" onclick="showSection('inquiries')">
+                <i class="fas fa-envelope"></i> Inquiries
+            </a>
+            <a href="#appointments" class="menu-item" onclick="showSection('appointments')">
+                <i class="fas fa-calendar"></i> Appointments
+            </a>
+            <a href="#analytics" class="menu-item" onclick="showSection('analytics')">
+                <i class="fas fa-chart-bar"></i> Analytics
+            </a>
+            <a href="#content" class="menu-item" onclick="showSection('content')">
+                <i class="fas fa-edit"></i> Content
+            </a>
+            <a href="#finance" class="menu-item" onclick="showSection('finance')">
+                <i class="fas fa-dollar-sign"></i> Finance
+            </a>
+            <a href="#settings" class="menu-item" onclick="showSection('settings')">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+            <a href="index.html" class="menu-item">
+                <i class="fas fa-external-link-alt"></i> View Website
+            </a>
+            <a href="#" class="menu-item" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <h1 id="page-title">Dashboard Overview</h1>
+            <div class="user-info">
+                <div class="user-avatar">N</div>
+                <div>
+                    <div style="font-weight: 600;">Norbert</div>
+                    <div style="font-size: 0.8rem; color: var(--secondary-color);">Cool Homes Founder</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard-section">
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">24</div>
+                    <div class="stat-label">Total Properties</div>
+                </div>
+                <div class="stat-card success">
+                    <div class="stat-number">18</div>
+                    <div class="stat-label">Active Listings</div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-number">156</div>
+                    <div class="stat-label">Total Inquiries</div>
+                </div>
+                <div class="stat-card danger">
+                    <div class="stat-number">42</div>
+                    <div class="stat-label">Pending Appointments</div>
                 </div>
             </div>
 
-            <!-- Main Content -->
-            <div class="col-lg-10 dashboard-content">
-                <div class="p-4">
-                    <!-- Header -->
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <div>
-                            <h2 class="mb-1">Welcome back, John!</h2>
-                            <p class="text-muted">Here's what's happening with your real estate journey.</p>
+            <!-- Recent Activity -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h3 class="section-title">Recent Activity</h3>
+                </div>
+                <div class="recent-activity">
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: var(--success-color);">
+                            <i class="fas fa-plus"></i>
                         </div>
-                        <div>
-                            <button class="btn btn-primary" onclick="showSection('inquiries')">
-                                <i class="fas fa-plus me-2"></i>New Inquiry
+                        <div class="activity-content">
+                            <div class="activity-title">New property added: Luxury Villa in Karen</div>
+                            <div class="activity-time">2 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: var(--primary-color);">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">New inquiry received for Westlands Apartment</div>
+                            <div class="activity-time">4 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: var(--warning-color);">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Appointment scheduled for tomorrow</div>
+                            <div class="activity-time">6 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: var(--danger-color);">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">New agent registered: Sarah Kimani</div>
+                            <div class="activity-time">1 day ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Properties Section -->
+        <div id="properties-section" style="display: none;">
+            <div class="content-section">
+                <div class="section-header">
+                    <h3 class="section-title">Property Management</h3>
+                    <button class="btn-primary" onclick="showAddPropertyModal()">
+                        <i class="fas fa-plus"></i> Add Property
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Property</th>
+                                <th>Location</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Views</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <img src="26-Mzizi-Court.webp" alt="Property" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px;">
+                                        <div>
+                                            <div style="font-weight: 600;">Luxury Apartment</div>
+                                            <div style="font-size: 0.8rem; color: var(--secondary-color);">3 Beds, 2 Baths</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Westlands, Nairobi</td>
+                                <td>KSh 8,500,000</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>1,234</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-outline-primary btn-sm">Edit</button>
+                                        <button class="btn btn-outline-danger btn-sm">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <img src="Loft-Residences.webp" alt="Property" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px;">
+                                        <div>
+                                            <div style="font-weight: 600;">Modern Villa</div>
+                                            <div style="font-size: 0.8rem; color: var(--secondary-color);">4 Beds, 3 Baths</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Karen, Nairobi</td>
+                                <td>KSh 15,000,000</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>856</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-outline-primary btn-sm">Edit</button>
+                                        <button class="btn btn-outline-danger btn-sm">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Section -->
+        <div id="users-section" style="display: none;">
+            <div class="content-section">
+                <div class="section-header">
+                    <h3 class="section-title">User Management</h3>
+                    <button class="btn-primary" onclick="showAddUserModal()">
+                        <i class="fas fa-plus"></i> Add User
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Role</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Last Login</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <div class="user-avatar" style="width: 40px; height: 40px;">N</div>
+                                        <div>
+                                            <div style="font-weight: 600;">Norbert</div>
+                                            <div style="font-size: 0.8rem; color: var(--secondary-color);">Founder</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-info">Admin</span></td>
+                                <td>admin@coolhomes.co.ke</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>2 hours ago</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-outline-primary btn-sm">Edit</button>
+                                        <button class="btn btn-outline-danger btn-sm">Deactivate</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <div class="user-avatar" style="width: 40px; height: 40px;">S</div>
+                                        <div>
+                                            <div style="font-weight: 600;">Sarah Kimani</div>
+                                            <div style="font-size: 0.8rem; color: var(--secondary-color);">Agent</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge badge-warning">Agent</span></td>
+                                <td>sarah@coolhomes.co.ke</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>1 day ago</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-outline-primary btn-sm">Edit</button>
+                                        <button class="btn btn-outline-danger btn-sm">Deactivate</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inquiries Section -->
+        <div id="inquiries-section" style="display: none;">
+            <div class="content-section">
+                <div class="section-header">
+                    <h3 class="section-title">Inquiry Management</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Property</th>
+                                <th>Type</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>John Mwangi</td>
+                                <td>john@email.com</td>
+                                <td>Luxury Apartment</td>
+                                <td>Purchase</td>
+                                <td>2 hours ago</td>
+                                <td><span class="badge badge-warning">New</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-outline-primary btn-sm">View</button>
+                                        <button class="btn btn-outline-success btn-sm">Reply</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Mary Wanjiku</td>
+                                <td>mary@email.com</td>
+                                <td>Modern Villa</td>
+                                <td>Rental</td>
+                                <td>1 day ago</td>
+                                <td><span class="badge badge-success">Replied</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-outline-primary btn-sm">View</button>
+                                        <button class="btn btn-outline-success btn-sm">Reply</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Appointments Section -->
+        <div id="appointments-section" style="display: none;">
+            <div class="content-section">
+                <div class="section-header">
+                    <h3 class="section-title">Appointment Management</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Client</th>
+                                <th>Property</th>
+                                <th>Date & Time</th>
+                                <th>Agent</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Peter Kiprop</td>
+                                <td>Luxury Apartment</td>
+                                <td>Tomorrow, 2:00 PM</td>
+                                <td>Sarah Kimani</td>
+                                <td><span class="badge badge-warning">Scheduled</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-outline-primary btn-sm">View</button>
+                                        <button class="btn btn-outline-success btn-sm">Confirm</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Grace Akinyi</td>
+                                <td>Modern Villa</td>
+                                <td>Friday, 10:00 AM</td>
+                                <td>Sarah Kimani</td>
+                                <td><span class="badge badge-success">Confirmed</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-outline-primary btn-sm">View</button>
+                                        <button class="btn btn-outline-danger btn-sm">Cancel</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Section -->
+        <div id="analytics-section" style="display: none;">
+            <div class="content-section">
+                <div class="section-header">
+                    <h3 class="section-title">Analytics & Reports</h3>
+                </div>
+                <div class="chart-container">
+                    <div style="text-align: center; padding: 2rem; color: var(--secondary-color);">
+                        <i class="fas fa-chart-bar" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <h4>Analytics Dashboard</h4>
+                        <p>Property views, conversion rates, and performance metrics will be displayed here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Section -->
+        <div id="content-section" style="display: none;">
+            <div class="content-section">
+                <div class="section-header">
+                    <h3 class="section-title">Content Management</h3>
+                    <button class="btn-primary" onclick="showAddContentModal()">
+                        <i class="fas fa-plus"></i> Add Content
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Kenya Real Estate Market Trends 2025</td>
+                                <td>Blog Post</td>
+                                <td><span class="badge badge-success">Published</span></td>
+                                <td>2 days ago</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-outline-primary btn-sm">Edit</button>
+                                        <button class="btn btn-outline-danger btn-sm">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Finance Section -->
+        <div id="finance-section" style="display: none;">
+            <div class="content-section">
+                <div class="section-header">
+                    <h3 class="section-title">Financial Management</h3>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">KSh 2.4M</div>
+                        <div class="stat-label">Monthly Revenue</div>
+                    </div>
+                    <div class="stat-card success">
+                        <div class="stat-number">KSh 18.5M</div>
+                        <div class="stat-label">Total Sales</div>
+                    </div>
+                    <div class="stat-card warning">
+                        <div class="stat-number">KSh 450K</div>
+                        <div class="stat-label">Pending Commissions</div>
+                    </div>
+                    <div class="stat-card danger">
+                        <div class="stat-number">KSh 120K</div>
+                        <div class="stat-label">Monthly Expenses</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div id="settings-section" style="display: none;">
+            <div class="content-section">
+                <div class="section-header">
+                    <h3 class="section-title">System Settings</h3>
+                </div>
+                <div style="padding: 2rem;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Company Information</h5>
+                            <div class="mb-3">
+                                <label class="form-label">Company Name</label>
+                                <input type="text" class="form-control" value="Cool Homes" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Founder</label>
+                                <input type="text" class="form-control" value="Norbert" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" value="info@coolhomes.co.ke">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Phone</label>
+                                <input type="tel" class="form-control" value="0701274458">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>System Preferences</h5>
+                            <div class="mb-3">
+                                <label class="form-label">Default Currency</label>
+                                <select class="form-control">
+                                    <option>Kenyan Shilling (KSh)</option>
+                                    <option>US Dollar (USD)</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Time Zone</label>
+                                <select class="form-control">
+                                    <option>East Africa Time (GMT+3)</option>
+                                </select>
+                            </div>
+                            <button class="btn-primary">
+                                <i class="fas fa-save"></i> Save Settings
                             </button>
-                        </div>
-                    </div>
-
-                    <!-- Overview Section -->
-                    <div id="overview-section">
-                        <!-- Stats Cards -->
-                        <div class="row mb-4">
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="card stat-card border-left-primary shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Favorite Properties</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">12</div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-heart fa-2x text-gray-300"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="card stat-card border-left-success shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Inquiries Sent</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-envelope fa-2x text-gray-300"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="card stat-card border-left-info shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Appointments</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="card stat-card border-left-warning shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Properties Viewed</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">25</div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-eye fa-2x text-gray-300"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Recent Activity -->
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <div class="card shadow">
-                                    <div class="card-header">
-                                        <h5 class="mb-0">Recent Activity</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="timeline">
-                                            <div class="timeline-item mb-3">
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0">
-                                                        <i class="fas fa-heart text-danger"></i>
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <h6 class="mb-1">Added to Favorites</h6>
-                                                        <p class="text-muted mb-1">Luxury Apartment in Westlands</p>
-                                                        <small class="text-muted">2 hours ago</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="timeline-item mb-3">
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0">
-                                                        <i class="fas fa-envelope text-primary"></i>
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <h6 class="mb-1">Sent Inquiry</h6>
-                                                        <p class="text-muted mb-1">Modern Villa in Karen</p>
-                                                        <small class="text-muted">1 day ago</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="timeline-item mb-3">
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0">
-                                                        <i class="fas fa-calendar text-success"></i>
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <h6 class="mb-1">Scheduled Appointment</h6>
-                                                        <p class="text-muted mb-1">Beachfront Apartment in Mombasa</p>
-                                                        <small class="text-muted">2 days ago</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="card shadow">
-                                    <div class="card-header">
-                                        <h5 class="mb-0">Quick Actions</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="d-grid gap-2">
-                                            <a href="properties.html" class="btn btn-primary">
-                                                <i class="fas fa-search me-2"></i>Browse Properties
-                                            </a>
-                                            <a href="test.html#contact" class="btn btn-outline-primary">
-                                                <i class="fas fa-envelope me-2"></i>Contact Agent
-                                            </a>
-                                            <a href="test.html#blog" class="btn btn-outline-success">
-                                                <i class="fas fa-newspaper me-2"></i>Read Blog
-                                            </a>
-                                            <a href="test.html#mortgage-calculator" class="btn btn-outline-info">
-                                                <i class="fas fa-calculator me-2"></i>Mortgage Calculator
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Favorites Section -->
-                    <div id="favorites-section" style="display: none;">
-                        <div class="card shadow">
-                            <div class="card-header">
-                                <h5 class="mb-0">My Favorite Properties</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="row" id="favorites-container">
-                                    <!-- Favorites will be loaded dynamically -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Inquiries Section -->
-                    <div id="inquiries-section" style="display: none;">
-                        <div class="card shadow">
-                            <div class="card-header">
-                                <h5 class="mb-0">My Inquiries</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Property</th>
-                                                <th>Type</th>
-                                                <th>Status</th>
-                                                <th>Date</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Luxury Apartment in Westlands</td>
-                                                <td>General Inquiry</td>
-                                                <td><span class="badge bg-warning">Pending</span></td>
-                                                <td>Dec 15, 2024</td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">View</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Modern Villa in Karen</td>
-                                                <td>Schedule Viewing</td>
-                                                <td><span class="badge bg-success">Responded</span></td>
-                                                <td>Dec 12, 2024</td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">View</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Appointments Section -->
-                    <div id="appointments-section" style="display: none;">
-                        <div class="card shadow">
-                            <div class="card-header">
-                                <h5 class="mb-0">My Appointments</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Property</th>
-                                                <th>Agent</th>
-                                                <th>Date & Time</th>
-                                                <th>Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Beachfront Apartment in Mombasa</td>
-                                                <td>Mike Davis</td>
-                                                <td>Dec 20, 2024 2:00 PM</td>
-                                                <td><span class="badge bg-success">Confirmed</span></td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">View</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Luxury Apartment in Westlands</td>
-                                                <td>Sarah Johnson</td>
-                                                <td>Dec 18, 2024 10:00 AM</td>
-                                                <td><span class="badge bg-warning">Pending</span></td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">View</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Profile Section -->
-                    <div id="profile-section" style="display: none;">
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <div class="card shadow">
-                                    <div class="card-header">
-                                        <h5 class="mb-0">Profile Information</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <form>
-                                            <div class="row g-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Full Name</label>
-                                                    <input type="text" class="form-control" value="John Mwangi">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Email</label>
-                                                    <input type="email" class="form-control" value="john@example.com">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Phone</label>
-                                                    <input type="tel" class="form-control" value="+254 700 123 456">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Location</label>
-                                                    <input type="text" class="form-control" value="Nairobi, Kenya">
-                                                </div>
-                                                <div class="col-12">
-                                                    <label class="form-label">Bio</label>
-                                                    <textarea class="form-control" rows="3">First-time home buyer looking for the perfect property in Nairobi.</textarea>
-                                                </div>
-                                                <div class="col-12">
-                                                    <button type="submit" class="btn btn-primary">Update Profile</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="card shadow">
-                                    <div class="card-body text-center">
-                                        <div class="mb-3">
-                                            <i class="fas fa-user-circle fa-5x text-primary"></i>
-                                        </div>
-                                        <h5>John Mwangi</h5>
-                                        <p class="text-muted">Property Buyer</p>
-                                        <button class="btn btn-outline-primary">Change Photo</button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -384,101 +895,134 @@
         </div>
     </div>
 
+    <!-- Modals -->
+    <div class="modal fade" id="addPropertyModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Property</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Property Title</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Location</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Price</label>
+                                    <input type="number" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Bedrooms</label>
+                                    <input type="number" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Bathrooms</label>
+                                    <input type="number" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Property Type</label>
+                                    <select class="form-control" required>
+                                        <option>Apartment</option>
+                                        <option>House</option>
+                                        <option>Villa</option>
+                                        <option>Commercial</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" rows="4"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn-primary">Add Property</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Navigation
         function showSection(section) {
             // Hide all sections
             document.querySelectorAll('[id$="-section"]').forEach(el => {
                 el.style.display = 'none';
             });
             
-            // Remove active class from all nav links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            
             // Show selected section
             document.getElementById(section + '-section').style.display = 'block';
             
-            // Add active class to clicked nav link
+            // Update active menu item
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
             event.target.classList.add('active');
             
-            // Load section-specific data
-            if (section === 'favorites') {
-                loadFavorites();
-            }
+            // Update page title
+            const titles = {
+                'dashboard': 'Dashboard Overview',
+                'properties': 'Property Management',
+                'users': 'User Management',
+                'inquiries': 'Inquiry Management',
+                'appointments': 'Appointment Management',
+                'analytics': 'Analytics & Reports',
+                'content': 'Content Management',
+                'finance': 'Financial Management',
+                'settings': 'System Settings'
+            };
+            document.getElementById('page-title').textContent = titles[section] || 'Dashboard';
         }
 
-        function loadFavorites() {
-            const container = document.getElementById('favorites-container');
-            const favorites = [
-                {
-                    id: 'property1',
-                    title: 'Luxury Apartment in Westlands',
-                    location: 'Westlands, Nairobi',
-                    price: 'KSh 25,000,000',
-                    image: '26-Mzizi-Court.webp'
-                },
-                {
-                    id: 'property2',
-                    title: 'Modern Villa in Karen',
-                    location: 'Karen, Nairobi',
-                    price: 'KSh 45,000,000',
-                    image: 'Loft-Residences.webp'
-                },
-                {
-                    id: 'property3',
-                    title: 'Beachfront Apartment in Mombasa',
-                    location: 'Nyali, Mombasa',
-                    price: 'KSh 8,500,000',
-                    image: 'Riverbank.webp'
-                }
-            ];
-            
-            container.innerHTML = '';
-            favorites.forEach(property => {
-                const col = document.createElement('div');
-                col.className = 'col-lg-4 col-md-6 mb-4';
-                col.innerHTML = `
-                    <div class="card h-100 shadow-sm">
-                        <img src="${property.image}" alt="${property.title}" class="card-img-top" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h6 class="card-title">${property.title}</h6>
-                            <p class="card-text text-muted">
-                                <i class="fas fa-map-marker-alt me-1"></i>${property.location}
-                            </p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <strong class="text-primary">${property.price}</strong>
-                                <div>
-                                    <a href="property-details.html?id=${property.id}" class="btn btn-sm btn-outline-primary">View</a>
-                                    <button class="btn btn-sm btn-outline-danger" onclick="removeFavorite('${property.id}')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(col);
-            });
+        // Modal functions
+        function showAddPropertyModal() {
+            new bootstrap.Modal(document.getElementById('addPropertyModal')).show();
         }
 
-        function removeFavorite(propertyId) {
-            if (confirm('Remove this property from your favorites?')) {
-                alert('Property removed from favorites!');
-                loadFavorites(); // Reload the list
+        function showAddUserModal() {
+            alert('Add User modal would open here. This would allow adding new agents, buyers, or other users to the system.');
+        }
+
+        function showAddContentModal() {
+            alert('Add Content modal would open here. This would allow creating new blog posts, property descriptions, or other content.');
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userRole');
+                window.location.href = 'index.html';
             }
         }
 
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
-            // Check if user is logged in (in a real app, this would be server-side)
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-            if (!isLoggedIn) {
-                alert('Please log in to access your dashboard.');
+            // Check if user is logged in
+            const userEmail = localStorage.getItem('userEmail');
+            const userRole = localStorage.getItem('userRole');
+            
+            if (!userEmail || userRole !== 'admin') {
+                alert('Access denied. Admin privileges required.');
                 window.location.href = 'login.html';
                 return;
             }
+            
+            // Show welcome message
+            console.log('Welcome to Cool Homes Admin Dashboard, Norbert!');
         });
     </script>
 </body>
